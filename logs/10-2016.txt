@@ -1,0 +1,91 @@
+::1  guest m_cabin_ac_template 1003 SELECT SCOPE_IDENTITY() AS insert_id update {"acType_fk":"1","acReg_fk":null,"cabinItem":"3","FileImage":"crj1000-pk-gik-cabin-general-051016.jpg"} guest update m_cabin_ac_template 2016-10-05 08:28:18
+::1  guest m_aircraft_manufacture 1005 SELECT SCOPE_IDENTITY() AS insert_id update {"name_manf":"tes","desc_manf":"tes"} guest update m_aircraft_manufacture 2016-10-05 08:34:12
+::1  guest m_aircraft_manufacture 1005 UPDATE "m_aircraft_manufacture" SET "deleted_at" = '2016-10-05 08:34:20', "deleted_by" = 0
+WHERE "id" = '1005' deactive {"id":1005,"name_manf":"tes","desc_manf":"tes","created_at":"2016-10-05 08:34:12.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 08:34:20.000","deleted_by":0} guest deactive m_aircraft_manufacture 2016-10-05 08:34:20
+::1  guest m_aircraft_type 8 SELECT SCOPE_IDENTITY() AS insert_id update {"name_aircraft":"tes","desc_aircraft":"123","id_aircraft_manufacture_fk":"1"} guest update m_aircraft_type 2016-10-05 08:34:54
+::1  guest m_aircraft_type 8 UPDATE "m_aircraft_type" SET "deleted_at" = '2016-10-05 08:35:01', "deleted_by" = 0
+WHERE "id" = '8' deactive {"id":8,"name_aircraft":"tes","desc_aircraft":"123","id_aircraft_manufacture_fk":1,"created_at":"2016-10-05 08:34:54.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 08:35:01.000","deleted_by":0} guest deactive m_aircraft_type 2016-10-05 08:35:01
+::1  guest m_aircraft_reg 148 SELECT SCOPE_IDENTITY() AS insert_id update {"name_ac_reg":"tes","desc_ac_reg":"tes123","id_aircraft_type_fk":"3","id_aircraft_manufacture_fk":"1"} guest update m_aircraft_reg 2016-10-05 08:36:43
+::1  guest m_performance_type 1001 SELECT SCOPE_IDENTITY() AS insert_id update {"name_type":"john doe","desc_type":"lorem ipsum"} guest update m_performance_type 2016-10-05 08:40:32
+::1  guest m_performance_type 1001 UPDATE "m_performance_type" SET "name_type" = 'john does', "desc_type" = 'lorem ipsum', "updated_at" = '2016-10-05 08:40:46'
+WHERE "id" = '1001' update {"name_type":"john does","desc_type":"lorem ipsum"} guest update m_performance_type 2016-10-05 08:40:46
+::1  guest m_performance_type 1001 UPDATE "m_performance_type" SET "deleted_at" = '2016-10-05 08:40:55', "deleted_by" = 0
+WHERE "id" = '1001' deactive {"id":1001,"name_type":"john does","desc_type":"lorem ipsum","created_at":"2016-10-05 08:40:32.000","created_by":null,"updated_at":"2016-10-05 08:40:46.000","updated_by":null,"deleted_at":"2016-10-05 08:40:55.000","deleted_by":0} guest deactive m_performance_type 2016-10-05 08:40:55
+::1  guest m_aircraft_reg 148 UPDATE "m_aircraft_reg" SET "deleted_at" = '2016-10-05 08:52:21', "deleted_by" = 0
+WHERE "id" = '148' deactive {"id":148,"name_ac_reg":"tes","desc_ac_reg":"tes123","id_aircraft_type_fk":3,"id_aircraft_manufacture_fk":1,"created_at":"2016-10-05 08:36:43.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 08:52:21.000","deleted_by":0} guest deactive m_aircraft_reg 2016-10-05 08:52:21
+::1  guest m_faultCodeItem 22 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"0001","fName":"foo bar","fDesc":"foo bar"} guest update m_faultCodeItem 2016-10-05 21:50:28
+::1  guest m_faultCodeItem 23 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"001","fName":"adsa","fDesc":"asdsa"} guest update m_faultCodeItem 2016-10-05 21:56:08
+::1  guest m_faultCodeItem 24 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"001","fName":"asdas","fDesc":"asc"} guest update m_faultCodeItem 2016-10-05 21:59:31
+::1  guest m_faultCodeItem 24 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-05 22:00:57', "deleted_by" = 0
+WHERE "id" = '24' deactive {"id":24,"fCode":"001","fName":"asdas","fDesc":"asc","created_at":"2016-10-05 21:59:31.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 22:00:57.000","deleted_by":0} guest deactive m_faultCodeItem 2016-10-05 22:00:57
+::1  guest m_faultCodeItem 23 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-05 22:01:06', "deleted_by" = 0
+WHERE "id" = '23' deactive {"id":23,"fCode":"001","fName":"adsa","fDesc":"asdsa","created_at":"2016-10-05 21:56:08.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 22:01:06.000","deleted_by":0} guest deactive m_faultCodeItem 2016-10-05 22:01:06
+::1  guest m_faultCodeItem 22 UPDATE "m_faultCodeItem" SET "fCode" = '0001', "fName" = 'foo bar', "fDesc" = 'foo bar', "updated_at" = '2016-10-05 22:02:30'
+WHERE "id" = '22' update {"fCode":"0001","fName":"foo bar","fDesc":"foo bar"} guest update m_faultCodeItem 2016-10-05 22:02:30
+::1  guest m_faultCodeItem 22 UPDATE "m_faultCodeItem" SET "fCode" = '00012', "fName" = 'foo barx', "fDesc" = 'foo bar', "updated_at" = '2016-10-05 22:02:52'
+WHERE "id" = '22' update {"fCode":"00012","fName":"foo barx","fDesc":"foo bar"} guest update m_faultCodeItem 2016-10-05 22:02:52
+::1  guest m_faultCodeItem 25 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"001","fName":"asd","fDesc":"asd"} guest update m_faultCodeItem 2016-10-05 22:12:49
+::1  guest m_faultCodeItem 26 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"0012","fName":"as","fDesc":"as"} guest update m_faultCodeItem 2016-10-05 22:17:13
+::1  guest m_faultCodeItem 26 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-05 22:17:27', "deleted_by" = 0
+WHERE "id" = '26' deactive {"id":26,"fCode":"0012","fName":"as","fDesc":"as","created_at":"2016-10-05 22:17:13.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 22:17:27.000","deleted_by":0} guest deactive m_faultCodeItem 2016-10-05 22:17:27
+::1  guest m_faultCodeItem 25 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-05 22:17:34', "deleted_by" = 0
+WHERE "id" = '25' deactive {"id":25,"fCode":"001","fName":"asd","fDesc":"asd","created_at":"2016-10-05 22:12:49.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-05 22:17:34.000","deleted_by":0} guest deactive m_faultCodeItem 2016-10-05 22:17:34
+::1  guest m_faultCodeItem 22 UPDATE "m_faultCodeItem" SET "fCode" = '00123', "fName" = 'foo barxss', "fDesc" = 'foo barsss', "updated_at" = '2016-10-05 22:18:00'
+WHERE "id" = '22' update {"fCode":"00123","fName":"foo barxss","fDesc":"foo barsss"} guest update m_faultCodeItem 2016-10-05 22:18:00
+::1  guest m_faultCodeItem 22 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-05 22:18:22', "deleted_by" = 0
+WHERE "id" = '22' deactive {"id":22,"fCode":"00123","fName":"foo barxss","fDesc":"foo barsss","created_at":"2016-10-05 21:50:28.000","created_by":null,"updated_at":"2016-10-05 22:18:00.000","updated_by":null,"deleted_at":"2016-10-05 22:18:22.000","deleted_by":0} guest deactive m_faultCodeItem 2016-10-05 22:18:22
+::1  guest m_faultCodeItemDtl 204 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"XXX","fName":"john doe","fDesc":"john doe","fType":"2"} guest update m_faultCodeItemDtl 2016-10-06 09:52:56
+::1  guest m_faultCodeItemDtl 205 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"aaaaaaaaaaaaaaaa","fName":"john doe","fDesc":"john doe","fType":"2"} guest update m_faultCodeItemDtl 2016-10-06 09:55:28
+::1  guest m_faultCodeItemDtl 206 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"qwe","fName":"qweq","fDesc":"aqwe","fType":"2"} guest update m_faultCodeItemDtl 2016-10-06 10:00:33
+::1  guest m_faultCodeItemDtl 207 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"xxx","fName":"john doe","fDesc":"john doe","fType":"002"} guest update m_faultCodeItemDtl 2016-10-06 10:03:46
+::1  guest m_faultCodeItemDtl 207 UPDATE "m_faultCodeItemDtl" SET "deleted_at" = '2016-10-06 10:03:54', "deleted_by" = 0
+WHERE "id" = '207' deactive {"id":207,"fCode":"xxx","fName":"john doe","fDesc":"john doe","fType":"002","created_at":"2016-10-06 10:03:46.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-06 10:03:54.000","deleted_by":0} guest deactive m_faultCodeItemDtl 2016-10-06 10:03:54
+::1  guest m_faultCodeItemDtl 208 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"abc","fName":"john doe","fDesc":"john doe","fType":"002"} guest update m_faultCodeItemDtl 2016-10-06 10:04:32
+::1  guest m_faultCodeItemDtl 208 UPDATE "m_faultCodeItemDtl" SET "updated_at" = '2016-10-06 10:05:09'
+WHERE "id" = '208' update {"name_type":"john doexxx","desc_type":"john doexxx"} guest update m_faultCodeItemDtl 2016-10-06 10:05:09
+::1  guest m_faultCodeItemDtl 208 UPDATE "m_faultCodeItemDtl" SET "fCode" = 'abcxxx', "fName" = 'john doex', "fDesc" = 'john doexxxxx', "fType" = '004', "updated_at" = '2016-10-06 10:06:21'
+WHERE "id" = '208' update {"fCode":"abcxxx","fName":"john doex","fDesc":"john doexxxxx","fType":"004"} guest update m_faultCodeItemDtl 2016-10-06 10:06:21
+::1  guest m_faultCodeItemDtl 208 UPDATE "m_faultCodeItemDtl" SET "deleted_at" = '2016-10-06 10:06:38', "deleted_by" = 0
+WHERE "id" = '208' deactive {"id":208,"fCode":"abcxxx","fName":"john doex","fDesc":"john doexxxxx","fType":"004","created_at":"2016-10-06 10:04:32.000","created_by":null,"updated_at":"2016-10-06 10:06:21.000","updated_by":null,"deleted_at":"2016-10-06 10:06:38.000","deleted_by":0} guest deactive m_faultCodeItemDtl 2016-10-06 10:06:38
+::1  guest m_faultType 52 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"0301","fName":"john doe","fDesc":"john doe"} guest update m_faultType 2016-10-06 11:44:29
+::1  guest m_faultType 53 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"00012","fName":"john doe","fDesc":"lorem ipsum","fType":"2"} guest update m_faultType 2016-10-06 11:46:43
+::1  guest m_faultType 52 UPDATE "m_faultType" SET "deleted_at" = '2016-10-06 11:46:52', "deleted_by" = 0
+WHERE "id" = '52' deactive {"id":52,"fCode":"0301","fName":"john doe","fDesc":"john doe","fType":"2","created_at":"2016-10-06 11:44:29.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-06 11:46:52.000","deleted_by":0} guest deactive m_faultType 2016-10-06 11:46:52
+::1  guest m_faultType 53 UPDATE "m_faultType" SET "fCode" = '0001', "fName" = 'john doessss', "fDesc" = 'lorem ipsum etresum', "fType" = '2', "updated_at" = '2016-10-06 11:47:18'
+WHERE "id" = '53' update {"fCode":"0001","fName":"john doessss","fDesc":"lorem ipsum etresum","fType":"2"} guest update m_faultType 2016-10-06 11:47:18
+::1  guest m_faultType 53 UPDATE "m_faultType" SET "deleted_at" = '2016-10-06 11:47:47', "deleted_by" = 0
+WHERE "id" = '53' deactive {"id":53,"fCode":"0001","fName":"john doessss","fDesc":"lorem ipsum etresum","fType":"2","created_at":"2016-10-06 11:46:43.000","created_by":null,"updated_at":"2016-10-06 11:47:18.000","updated_by":null,"deleted_at":"2016-10-06 11:47:47.000","deleted_by":0} guest deactive m_faultType 2016-10-06 11:47:47
+::1  guest m_faultType 54 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"0101","fName":"e","fDesc":"e","fType":"1"} guest update m_faultType 2016-10-06 11:58:16
+::1  guest m_faultCodeItem 27 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"0011","fName":"tes","fDesc":"tes123"} guest update m_faultCodeItem 2016-10-06 13:33:20
+::1  guest m_faultCodeItem 27 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-06 13:36:15', "deleted_by" = 0
+WHERE "id" = '27' deactive {"id":27,"fCode":"0011","fName":"tes","fDesc":"tes123","created_at":"2016-10-06 13:33:20.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-06 13:36:15.000","deleted_by":0} guest deactive m_faultCodeItem 2016-10-06 13:36:15
+::1  guest m_faultType 54 UPDATE "m_faultType" SET "deleted_at" = '2016-10-06 13:47:16', "deleted_by" = 0
+WHERE "id" = '54' deactive {"id":54,"fCode":"0101","fName":"e","fDesc":"e","fType":"1","created_at":"2016-10-06 11:58:16.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-10-06 13:47:16.000","deleted_by":0} guest deactive m_faultType 2016-10-06 13:47:16
+::1  guest m_cabin_ac_template 1004 SELECT SCOPE_IDENTITY() AS insert_id update {"aircraft_reg_fk":"129","cabinItem":"5","FileImage":"-pk-gik-galley-111016.jpg"} guest update m_cabin_ac_template 2016-10-11 11:22:21
+::1  guest m_cabin_ac_template 1004 UPDATE "m_cabin_ac_template" SET "cabinItem" = NULL, "updated_at" = '2016-10-11 16:42:03'
+WHERE "id" = '1004' update {"acType_fk":null,"acReg_fk":null,"cabinItem":null} guest update m_cabin_ac_template 2016-10-11 16:42:03
+::1  guest m_cabin_ac_template_detail 2465 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"190,83,5","id_cabin_ac_template_fk":"1004"} guest update m_cabin_ac_template_detail 2016-10-11 16:42:03
+::1  guest m_cabin_ac_template 1004 UPDATE "m_cabin_ac_template" SET "cabinItem" = NULL, "updated_at" = '2016-10-11 18:52:45'
+WHERE "id" = '1004' update {"acType_fk":null,"acReg_fk":null,"cabinItem":null} guest update m_cabin_ac_template 2016-10-11 18:52:45
+::1  guest m_cabin_ac_template_detail 2466 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"182,140,5","id_cabin_ac_template_fk":"1004"} guest update m_cabin_ac_template_detail 2016-10-11 18:52:45
+::1  guest m_cabin_ac_template  UPDATE "m_cabin_ac_template" SET "cabinItem" = '', "updated_at" = '2016-10-11 19:20:11'
+WHERE "id" IS NULL update {"acType_fk":"","acReg_fk":null,"cabinItem":""} guest update m_cabin_ac_template 2016-10-11 19:20:12
+::1  guest m_cabin_ac_template  UPDATE "m_cabin_ac_template" SET "cabinItem" = '', "updated_at" = '2016-10-11 19:20:20'
+WHERE "id" IS NULL update {"acType_fk":"","acReg_fk":null,"cabinItem":""} guest update m_cabin_ac_template 2016-10-11 19:20:20
+::1  guest m_cabin_ac_template 1005 SELECT SCOPE_IDENTITY() AS insert_id update {"aircraft_reg_fk":"1","cabinItem":"2","FileImage":"crj1000-pk-gik-seat-111016.jpg"} guest update m_cabin_ac_template 2016-10-11 19:29:50
+::1  guest m_cabin_ac_template 1005 UPDATE "m_cabin_ac_template" SET "cabinItem" = NULL, "updated_at" = '2016-10-11 19:30:35'
+WHERE "id" = '1005' update {"acType_fk":null,"acReg_fk":null,"cabinItem":null} guest update m_cabin_ac_template 2016-10-11 19:30:35
+::1  guest m_cabin_ac_template_detail 2467 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"253,170,5","id_cabin_ac_template_fk":"1005"} guest update m_cabin_ac_template_detail 2016-10-11 19:30:35
+::1  guest m_cabin_ac_template 1006 SELECT SCOPE_IDENTITY() AS insert_id update {"aircraft_reg_fk":"1","cabinItem":"4","FileImage":"crj1000-pk-gik-carpet-111016.jpg"} guest update m_cabin_ac_template 2016-10-11 19:31:10
+::1  guest m_cabin_ac_template 1007 SELECT SCOPE_IDENTITY() AS insert_id update {"aircraft_reg_fk":"1","cabinItem":"1","FileImage":"crj1000-pk-gik-attendant-seat-111016.jpg"} guest update m_cabin_ac_template 2016-10-11 19:32:05
+::1  guest m_cabin_ac_template_detail 2468 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"180,141,5","id_cabin_ac_template_fk":"1007"} guest update m_cabin_ac_template_detail 2016-10-11 19:32:05
+::1  guest m_cabin_ac_template_detail 2469 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A2","coordinate":"189,86,5","id_cabin_ac_template_fk":"1007"} guest update m_cabin_ac_template_detail 2016-10-11 19:32:05
+::1  guest m_cabin_ac_template 1008 SELECT SCOPE_IDENTITY() AS insert_id update {"aircraft_reg_fk":"1","cabinItem":"4","FileImage":"crj1000-pk-gik-carpet-111016.jpg"} guest update m_cabin_ac_template 2016-10-11 20:09:38
+::1  guest m_cabin_ac_template 1008 UPDATE "m_cabin_ac_template" SET "cabinItem" = '4', "updated_at" = '2016-10-11 20:09:58'
+WHERE "id" = '1008' update {"acType_fk":null,"acReg_fk":null,"cabinItem":"4"} guest update m_cabin_ac_template 2016-10-11 20:09:58
+::1  guest m_cabin_ac_template 1008 UPDATE "m_cabin_ac_template" SET "cabinItem" = '4', "updated_at" = '2016-10-11 20:10:15'
+WHERE "id" = '1008' update {"acType_fk":null,"acReg_fk":null,"cabinItem":"4"} guest update m_cabin_ac_template 2016-10-11 20:10:15
+::1  guest m_cabin_ac_template_detail 2470 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"176,138,5","id_cabin_ac_template_fk":"1008"} guest update m_cabin_ac_template_detail 2016-10-11 20:10:15
+::1  guest m_cabin_ac_template 1008 UPDATE "m_cabin_ac_template" SET "cabinItem" = '4', "updated_at" = '2016-10-11 20:19:11'
+WHERE "id" = '1008' update {"acType_fk":null,"acReg_fk":null,"cabinItem":"4"} guest update m_cabin_ac_template 2016-10-11 20:19:11
+::1  guest m_cabin_ac_template_detail 2471 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"179,141,5","id_cabin_ac_template_fk":"1008"} guest update m_cabin_ac_template_detail 2016-10-11 20:19:11

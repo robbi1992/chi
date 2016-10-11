@@ -1,0 +1,34 @@
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "name_manf" = 'Test data 2', "desc_manf" = 'Test data 1', "updated_at" = '2016-08-18 14:37:46'
+WHERE "id" = '5' update {"name_manf":"Test data 2","desc_manf":"Test data 1"} guest update m_aircraft_manufacture 2016-08-18 14:37:46
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "name_manf" = 'Test data 2', "desc_manf" = 'Test data 1', "updated_at" = '2016-08-18 14:38:12'
+WHERE "id" = '5' update {"name_manf":"Test data 2","desc_manf":"Test data 1"} guest update m_aircraft_manufacture 2016-08-18 14:38:12
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "name_manf" = 'Test data 2', "desc_manf" = 'Test data 1', "updated_at" = '2016-08-18 14:38:28'
+WHERE "id" = '5' update {"name_manf":"Test data 2","desc_manf":"Test data 1"} guest update m_aircraft_manufacture 2016-08-18 14:38:28
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "name_manf" = 'Test data 2', "desc_manf" = 'Test data 1', "updated_at" = '2016-08-18 14:38:34'
+WHERE "id" = '5' update {"name_manf":"Test data 2","desc_manf":"Test data 1"} guest update m_aircraft_manufacture 2016-08-18 14:38:34
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "name_manf" = 'Test data 2', "desc_manf" = 'Test data 1', "updated_at" = '2016-08-18 14:38:57'
+WHERE "id" = '5' update {"name_manf":"Test data 2","desc_manf":"Test data 1"} guest update m_aircraft_manufacture 2016-08-18 14:38:57
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "deleted_at" = '2016-08-18 14:48:08', "deleted_by" = 0
+WHERE "id" = '5' deactive {"id":5,"name_manf":"Test data 2","desc_manf":"Test data 1","created_at":"2016-08-18 13:41:17.000","created_by\r\n":null,"updated_at":"2016-08-18 14:38:57.000","updated_by\r\n":null,"deleted_at":"2016-08-18 14:48:08.000","deleted_by":0} guest deactive m_aircraft_manufacture 2016-08-18 14:48:09
+::1  guest m_aircraft_manufacture 5 UPDATE "m_aircraft_manufacture" SET "deleted_at" = '2016-08-18 14:48:20', "deleted_by" = 0
+WHERE "id" = '5' deactive {"id":5,"name_manf":"Test data 2","desc_manf":"Test data 1","created_at":"2016-08-18 13:41:17.000","created_by\r\n":null,"updated_at":"2016-08-18 14:38:57.000","updated_by\r\n":null,"deleted_at":"2016-08-18 14:48:20.000","deleted_by":0} guest deactive m_aircraft_manufacture 2016-08-18 14:48:20
+::1  guest m_aircraft_type 13 UPDATE "m_aircraft_type" SET "name_aircraft" = 'F-28', "desc_aircraft" = 'F-28
+', "id_aircraft_manufacture_fk" = '2', "updated_at" = '2016-08-18 16:19:01'
+WHERE "id" = '13' update {"name_aircraft":"F-28","desc_aircraft":"F-28\r\n","id_aircraft_manufacture_fk":"2"} guest update m_aircraft_type 2016-08-18 16:19:01
+::1  guest m_aircraft_reg 1 SELECT SCOPE_IDENTITY() AS insert_id update {"name_ac_reg":"PK-GPA","desc_ac_reg":"PK-GPA","id_aircraft_type_fk":"1","id_aircraft_manufacture_fk":null} guest update m_aircraft_reg 2016-08-19 16:25:34
+::1  guest m_aircraft_reg 1 UPDATE "m_aircraft_reg" SET "name_ac_reg" = 'PK-GPA', "desc_ac_reg" = 'PK-GPA', "id_aircraft_type_fk" = '1', "id_aircraft_manufacture_fk" = '1', "updated_at" = '2016-08-19 16:32:51'
+WHERE "id" = '1' update {"name_ac_reg":"PK-GPA","desc_ac_reg":"PK-GPA","id_aircraft_type_fk":"1","id_aircraft_manufacture_fk":"1"} guest update m_aircraft_reg 2016-08-19 16:32:52
+::1  guest m_aircraft_reg 1 UPDATE "m_aircraft_reg" SET "name_ac_reg" = 'PK-GPA', "desc_ac_reg" = 'PK-GPA', "id_aircraft_type_fk" = '2', "id_aircraft_manufacture_fk" = '1', "updated_at" = '2016-08-19 16:33:02'
+WHERE "id" = '1' update {"name_ac_reg":"PK-GPA","desc_ac_reg":"PK-GPA","id_aircraft_type_fk":"2","id_aircraft_manufacture_fk":"1"} guest update m_aircraft_reg 2016-08-19 16:33:02
+::1  guest m_aircraft_reg 1 UPDATE "m_aircraft_reg" SET "deleted_at" = '2016-08-19 16:33:07', "deleted_by" = 0
+WHERE "id" = '1' deactive {"id":1,"name_ac_reg":"PK-GPA","desc_ac_reg":"PK-GPA","id_aircraft_type_fk":2,"id_aircraft_manufacture_fk":1,"created_at":"2016-08-19 16:25:33.000","created_by":null,"updated_at":"2016-08-19 16:33:02.000","updated_by":null,"deleted_at":"2016-08-19 16:33:07.000","deleted_by":0} guest deactive m_aircraft_reg 2016-08-19 16:33:07
+::1  guest m_performance_type 19 SELECT SCOPE_IDENTITY() AS insert_id update {"name_type":"Coffe Maker","desc_type":"Coffe Maker"} guest update m_performance_type 2016-08-23 11:39:36
+::1  guest m_performance_type 19 UPDATE "m_performance_type" SET "deleted_at" = '2016-08-23 11:39:47', "deleted_by" = 0
+WHERE "id" = '19' deactive {"id":19,"name_type":"Coffe Maker","desc_type":"Coffe Maker","created_at":"2016-08-23 11:39:36.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-08-23 11:39:47.000","deleted_by":0} guest deactive m_performance_type 2016-08-23 11:39:47
+::1  guest m_performance_type 20 SELECT SCOPE_IDENTITY() AS insert_id update {"name_type":"Coffe Maker","desc_type":"Coffe Maker"} guest update m_performance_type 2016-08-23 11:43:11
+::1  guest m_performance_type 20 UPDATE "m_performance_type" SET "deleted_at" = '2016-08-23 11:44:30', "deleted_by" = 0
+WHERE "id" = '20' deactive {"id":20,"name_type":"Coffe Maker","desc_type":"Coffe Maker","created_at":"2016-08-23 11:43:10.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-08-23 11:44:30.000","deleted_by":0} guest deactive m_performance_type 2016-08-23 11:44:30
+::1  guest m_aircraft_manufacture 6 SELECT SCOPE_IDENTITY() AS insert_id update {"name_manf":"Test data 1","desc_manf":"Test data 1"} guest update m_aircraft_manufacture 2016-08-23 11:46:59
+::1  guest m_aircraft_manufacture 6 UPDATE "m_aircraft_manufacture" SET "deleted_at" = '2016-08-23 11:47:06', "deleted_by" = 0
+WHERE "id" = '6' deactive {"id":6,"name_manf":"Test data 1","desc_manf":"Test data 1","created_at":"2016-08-23 11:46:59.000","created_by":null,"updated_at":null,"updated_by":null,"deleted_at":"2016-08-23 11:47:06.000","deleted_by":0} guest deactive m_aircraft_manufacture 2016-08-23 11:47:06
+::1  guest m_aircraft_reg 2 SELECT SCOPE_IDENTITY() AS insert_id update {"name_ac_reg":"PK-GPL","desc_ac_reg":"AIRBUS A330-200 PK-GPL","id_aircraft_type_fk":"2","id_aircraft_manufacture_fk":"1"} guest update m_aircraft_reg 2016-08-23 11:51:12
