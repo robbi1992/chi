@@ -72,7 +72,16 @@ class CabinItems_model extends MY_Model {
 		return $this->db->count_all_results();
 	}
 	
-	
+	public function get_all() {
+		$this->db->order_by('name_type');
+		$get = $this->db->get($this->table);
+		return $get->result();
+	}
+
+	public function set_default() {
+		$get = $this->db->get($this->table);
+		return $get->row('id');
+	}
 }
 
 /* End of file Model_ac_delivery_report.php */

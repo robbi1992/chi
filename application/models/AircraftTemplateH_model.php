@@ -71,11 +71,18 @@ class AircraftTemplateH_model extends MY_Model {
 		return $query->num_rows();
 	}
 
+	public function get_data_by($ac_reg, $cabin) {
+		$this->db
+				->where('aircraft_reg_fk', $ac_reg)
+				->where('cabinItem', $cabin);
+		$get = $this->db->get($this->table);
+		return $get->result();
+	}
+
 	public function count_all() {
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
 	}
-	
 	
 }
 

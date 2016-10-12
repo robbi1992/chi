@@ -42,7 +42,6 @@ class health_view extends MX_Controller {
         $data['act'] = $this->page->base_url("/list_search");
         
 		$this->page->view('kpi_cabin', $data);
-        
 	}
     
     public function functionality($typeac,$typereg) {
@@ -57,9 +56,33 @@ class health_view extends MX_Controller {
         
 	}
     
-    public function interior($typeac,$typereg) {
-        
-        //die($typereg);
+    public function interior($typeac,$typereg, $cabin_item='') {
+        $this->load->model('AircraftReg_model');
+        $this->load->model('AircraftTemplateH_model');
+        $this->load->model('AircraftTemplateD_model');
+        $this->load->model('CabinItems_model');
+
+        //find template from cabin
+        $data_ac_reg = $this->AircraftReg_model->find($typereg, 'name_ac_reg');
+        $id_ac_reg = $data_ac_reg['id'];
+
+        if (empty($cabin_item)) {
+            $cabin_selected = $this->CabinItems_model->set_default();
+        }
+        else {
+            $cabin_selected = $cabin_item;
+        }
+        //echo $id_ac_reg . $cabin_selected; exit();
+        $data['cabin_template'] = $this->AircraftTemplateH_model->get_data_by($id_ac_reg, $cabin_selected);
+        //print_r($data['cabin_template']); exit();
+        if (count($data['cabin_template']) > 0) {
+            $data['cabin_template_detail'] = $this->AircraftTemplateD_model->get_data_by($data['cabin_template'][0]->id);    
+        }
+        else $data['cabin_template_detail'] = array();
+        //print_r($data['cabin_template_detail']); exit();
+        //
+        $data['cabins'] = $this->CabinItems_model->get_all();
+        //print_r($data); exit();
         $data['typeac'] = $typeac;
         $data['typereg'] = $typereg;
         $data['add'] = $this->page->base_url('/add');

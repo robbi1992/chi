@@ -73,7 +73,11 @@ class AircraftTemplateD_model extends MY_Model {
 		return $this->db->count_all_results();
 	}
 	
-	
+	public function get_data_by($temp_fk) {
+		$this->db->where('id_cabin_ac_template_fk', $temp_fk);
+		$get = $this->db->get($this->table);
+		return $get->result();
+	}
 }
 
 /* End of file Model_ac_delivery_report.php */
