@@ -282,7 +282,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button name="btn-save" type="button" class="btn btn-primary">Save Data</button>
             </div>
         </div>
     </div>
@@ -292,8 +292,12 @@
     var Input = {
         params: {
             no: 0,
+            cabinID: 0,
             faultCodeDetailVal: '',
-            faultTypeVal: ''
+            faultTypeVal: '',
+            value: 0,
+            transInterior: [],
+            isneedsave: false
         },
         baseUrl: '<?php echo base_url('health_input');?>/',
         inspectForm: $('form[name="inspection_form"]'),
@@ -320,10 +324,30 @@
             Input.params.no = Input.params.no + 1;
             Input.params.faultCodeDetailVal = params.faultCodeDetailVal;
             Input.params.faultTypeVal = params.faultTypeVal;
+            Input.params.value = params.valueVal;
+
+            data = {
+                fcid_fault_code: Input.params.faultCodeDetailVal,
+                ft_fault_type: Input.params.faultTypeVal,
+                value: Input.params.value,
+                catd_id: Input.params.cabinID
+            };
+            Input.params.transInterior.push(data);
+            //console.log(Input.params.transInterior);
         },
         getMenu: function(id, name) {
+            Input.params.cabinID = id;
+            Input.params.no = 0;
+            Input.params.cabinID = 0;
+            Input.params.faultCodeDetailVal = '';
+            Input.params.faultTypeVal = '';
+            Input.params.Value = 0;
+            Input.params.transInterior = [];
+            Input.params.isneedsave = false;
+            
             var wrapper = $('#menuModal');
             wrapper.find('[name="modalTitle"]').empty().html(name);
+            wrapper.find('table tbody').empty();
             wrapper.modal();
         },
         getDetail: function(value) {
@@ -377,6 +401,33 @@
                         };
                         Input.renderToCart(params);
                     }
+                    Input.params.save = true;
+                }
+            });
+            //save function
+            $('button[name="btn-save"]').on('click', function() {
+                if(Input.params.save) {
+                    $.ajax({
+                        url: Input.baseUrl + 'interior_save',
+                        type: 'post',
+                        dataType: 'json',
+                        data: JSON.stringify(Input.params.transInterior)
+                    }).done(function(result){
+                        if(result) {
+                            if(result.code == 500) {
+                                alert('Sorry, please try again laters');        
+                            }
+                            else {
+                                alert('Data saved');
+                                $('#menuModal').modal('hide');       
+                            }
+                        }
+                    }).fail(function(){
+                        alert('Sorry, please try again laters');
+                    });
+                }
+                else {
+                    Alert('No data need save...');
                 }
             });
         }

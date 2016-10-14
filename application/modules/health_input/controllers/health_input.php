@@ -107,9 +107,23 @@ class health_input extends MX_Controller {
     public function get_fault_code_detail() {
         $this->load->model('FaultCodeItemsDetail_model');
         $param = json_decode($this->input->raw_input_stream, TRUE);
-        $result = array();
+        
         $result = $this->FaultCodeItemsDetail_model->get_data_by($param['param']);
         //print_r($result); exit();
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
+    }
+
+    public function interior_save() {
+        $this->load->model('trans_interior_model');
+        $params = json_decode($this->input->raw_input_stream, TRUE);
+        $save = $this->trans_interior_model->performance_value($params);
+
+        $result = array('code' => 500);
+        if($save) {
+            $result = array('code' => 200);
+        }
         $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($result));
