@@ -3,8 +3,8 @@
 class FaultCodeItems_model extends MY_Model {
 	
 	private $table 			= 'm_faultCodeItem';
-	private $column_order 	= array(null,'fCode','fName',null);
-	private $column_search 	= array('id','fCode','fName',null);  
+	private $column_order 	= array(null, 'performance_type_id', 'fCode','fName',null);
+	private $column_search 	= array('id', 'performance_type_id', 'fCode','fName',null);  
 	private $order 			= array('id' => 'DESC'); 
 	public	$nama  	  		= '';
 	public	$uri  	  		= '';
@@ -80,6 +80,12 @@ class FaultCodeItems_model extends MY_Model {
 	}
 	public function get_all() {
 		return $this->db->get($this->table)->result_array();
+	}
+
+	public function get_data_by($param) {
+		$this->db->where('performance_type_id', $param);
+		$get = $this->db->get($this->table);
+		return $get->result();
 	}
 }
 

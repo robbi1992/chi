@@ -23,9 +23,17 @@ $().ready(function(){
             {
                 "targets"	: [ 1 ], //first column / numbering column
 				"orderable"	: true, //set not orderable
-            }, 
+            },
             {
                 "targets"	: [ 2 ], //first column / numbering column
+				"orderable"	: true, //set not orderable
+            }, 
+            {
+                "targets"	: [ 3 ], //first column / numbering column
+				"orderable"	: true, //set not orderable
+            },
+            {
+                "targets"	: [ 4 ], //first column / numbering column
 				"orderable"	: false, //set not orderable
             } 
 		],
@@ -45,6 +53,7 @@ $().ready(function(){
 		<thead>
 			<tr>
 				<th width="2%">No</th>
+				<th width="">Performance Type</th>
 				<th width="">Code</th>
 				<th width="">Name</th>
 				<th style="width:125px;"></th>

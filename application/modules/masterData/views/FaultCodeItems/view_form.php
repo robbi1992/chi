@@ -1,10 +1,29 @@
+<?php echo jquery_select2(); ?>
 
+<script type="text/javascript">
+	$().ready(function(){
+		$('.select').select2({
+			placeholder: 'Choose performance type'
+		});    
+	});
+</script>
 <section class="content-header">
 	<h1><?php echo $heading; ?> <small><?php echo $ttl;?></small></h1>
 </section>
 
 <section class="content">
     <?php echo form_open($act, array('class' => 'form-horizontal row-form', 'name' => 'myForm')); ?>
+        <div class="form-group">
+        	<label for="perf_type" class="col-sm-2 control-label input-sm">Performance Type</label>
+    		<div class="col-sm-3">
+                <select class="form-control select" id="perf_type" name="perf_type" required>
+                    <option value=""></option>
+                    <?php foreach($perf_type as $row): ?>
+                        <option value="<?php echo $row->id;?>" <?php if($row->id == @$data_row['performance_type_id']){echo 'selected';}  ?> ><?php echo $row->name_type;?></option>
+                    <?php endforeach; ?>
+                </select>
+    		</div>
+        </div>
         <div class="form-group">
     		<label class="col-sm-2 control-label input-sm">Code</label>
     		<div class="col-sm-3">

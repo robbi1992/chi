@@ -17,6 +17,7 @@ class FaultCodeItems extends MX_Controller {
 		));
 	}
 	public function get_data() {
+		$this->load->model('CabinItems_model');
 		$list = $this->FaultCodeItems_model->get_data();
 		
 		$data = array();
@@ -24,8 +25,13 @@ class FaultCodeItems extends MX_Controller {
 		foreach ($list as $grid) {			
 			$no++;
             
+            // get relations from performance type
+			$perf_type = $this->CabinItems_model->find($grid->performance_type_id, 'id');
+            // end
+
 			$row = array();
 			$row[] = $no;
+			$row[] = $perf_type['name_type'];
 			$row[] = $grid->fCode;
 			$row[] = $grid->fName;
 			$row[] = '<div style="width:100%;text-align:center;">
@@ -44,6 +50,8 @@ class FaultCodeItems extends MX_Controller {
 		echo json_encode($output);
 	}
 	private function form($action = 'insert', $id = ''){
+		$this->load->model('CabinItems_model');
+
 		if ($this->agent->referrer() == '') redirect($this->page->base_url());
 		$title    = '';
 		$data_row = '';
@@ -65,6 +73,8 @@ class FaultCodeItems extends MX_Controller {
         $data['back']       = $this->agent->referrer();
         $data['act']        = $this->page->base_url("/{$action}/{$id}"); 
         $data['data_row']   = $data_row;
+        $data['perf_type'] = $this->CabinItems_model->get_all();
+     	//print_r($data); exit();   
 		$this->page->view('FaultCodeItems/view_form', $data);
 	}
 	public function add(){
@@ -76,7 +86,8 @@ class FaultCodeItems extends MX_Controller {
             $data_post = array(
                                 'fCode'        => $this->input->post('code'),
                                 'fName'        => $this->input->post('name'),
-								'fDesc'        => $this->input->post('desc')
+								'fDesc'        => $this->input->post('desc'),
+								'performance_type_id' => $this->input->post('perf_type')
                             );
             $insert = $this->FaultCodeItems_model->add($data_post);
             if($insert == true){
@@ -98,6 +109,7 @@ class FaultCodeItems extends MX_Controller {
                                 'fCode'        => $this->input->post('code'),
 								'fName'        => $this->input->post('name'),
 								'fDesc'        => $this->input->post('desc'),
+								'performance_type_id' => $this->input->post('perf_type')
                             );
             
             $edit = $this->FaultCodeItems_model->update($id,$data_post,"id");

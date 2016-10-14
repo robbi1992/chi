@@ -89,3 +89,10 @@ WHERE "id" = '1008' update {"acType_fk":null,"acReg_fk":null,"cabinItem":"4"} gu
 ::1  guest m_cabin_ac_template 1008 UPDATE "m_cabin_ac_template" SET "cabinItem" = '4', "updated_at" = '2016-10-11 20:19:11'
 WHERE "id" = '1008' update {"acType_fk":null,"acReg_fk":null,"cabinItem":"4"} guest update m_cabin_ac_template 2016-10-11 20:19:11
 ::1  guest m_cabin_ac_template_detail 2471 SELECT SCOPE_IDENTITY() AS insert_id update {"noItem":"A1","coordinate":"179,141,5","id_cabin_ac_template_fk":"1008"} guest update m_cabin_ac_template_detail 2016-10-11 20:19:11
+::1  guest m_faultCodeItem 28 SELECT SCOPE_IDENTITY() AS insert_id update {"fCode":"xxx","fName":"john doe","fDesc":"john doe","performance_type_id":"1"} guest update m_faultCodeItem 2016-10-14 08:51:58
+::1  guest m_faultCodeItem 28 UPDATE "m_faultCodeItem" SET "fCode" = 'xxxxxxxxxx', "fName" = 'john doexxxxx', "fDesc" = 'john doexxxxxx', "performance_type_id" = '3', "updated_at" = '2016-10-14 08:52:26'
+WHERE "id" = '28' update {"fCode":"xxxxxxxxxx","fName":"john doexxxxx","fDesc":"john doexxxxxx","performance_type_id":"3"} guest update m_faultCodeItem 2016-10-14 08:52:26
+::1  guest m_faultCodeItem 28 UPDATE "m_faultCodeItem" SET "fCode" = 'asdasd', "fName" = 'john doexxxxx', "fDesc" = 'john doexxxxxx', "performance_type_id" = '1', "updated_at" = '2016-10-14 08:53:07'
+WHERE "id" = '28' update {"fCode":"asdasd","fName":"john doexxxxx","fDesc":"john doexxxxxx","performance_type_id":"1"} guest update m_faultCodeItem 2016-10-14 08:53:07
+::1  guest m_faultCodeItem 28 UPDATE "m_faultCodeItem" SET "deleted_at" = '2016-10-14 08:53:14', "deleted_by" = 0
+WHERE "id" = '28' deactive {"id":28,"fCode":"asdasd","fName":"john doexxxxx","fDesc":"john doexxxxxx","created_at":"2016-10-14 08:51:58.000","created_by":null,"updated_at":"2016-10-14 08:53:07.000","updated_by":null,"deleted_at":"2016-10-14 08:53:14.000","deleted_by":0,"performance_type_id":1} guest deactive m_faultCodeItem 2016-10-14 08:53:14

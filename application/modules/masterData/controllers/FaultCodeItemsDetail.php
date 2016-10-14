@@ -44,6 +44,7 @@ class FaultCodeItemsDetail extends MX_Controller {
 	}
 	private function form($action = 'insert', $id = ''){
 		$this->load->model('FaultCodeItems_model');
+		
 		if ($this->agent->referrer() == '') redirect($this->page->base_url());
 		$title    = '';
 		$data_row = '';

@@ -78,6 +78,11 @@ class FaultCodeItemsDetail_model extends MY_Model {
 		if ($num > 0) return FALSE;
 		return TRUE;
 	}
+
+	public function get_data_by($param) {
+		$this->db->where('fType', $param);
+		return $this->db->get($this->table)->result();
+	}
 }
 
 /* End of file Model_ac_delivery_report.php */
