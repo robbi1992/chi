@@ -240,6 +240,18 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="value" class="col-sm-3 control-label">Value</label>
+                        <div class="col-sm-9">
+                            <option class="hidden" view="template"></option>
+                            <select name="value" id="value" style="width:100%;" required="required">
+                                <option value="1">Bad</option>
+                                <option value="2">Fair</option>
+                                <option value="3">Good</option>
+                                <option value="4" selected="selected">Excellent</option>
+                            </select>
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-success btn-xs pull-right" name="btn-insert">Insert to cart</button>
                     <h4>Cart</h4>
                     <hr>
@@ -250,12 +262,14 @@
                                 <td view="no"></td>
                                 <td view="faultCodeDetail"></td>
                                 <td view="faultType"></td>
+                                <td view="value"></td>
                             </tr>
                             <!-- end template row -->
                             <tr>
                                 <th>No</th>
                                 <th>Fault code detail</th>
                                 <th>Fault Type</th>
+                                <th>Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -300,6 +314,7 @@
             row.find('[view="no"]').html(Input.params.no + 1);
             row.find('[view="faultCodeDetail"]').html(params.faultCodeDetailName);
             row.find('[view="faultType"]').html(params.faultTypeName);
+            row.find('[view="value"]').html(params.valueName);
 
             row.appendTo(rows);
             Input.params.no = Input.params.no + 1;
@@ -328,6 +343,9 @@
             Input.inspectForm.find('select[name="fault_types"]').select2({
                 placeholder: 'Choose fault type'
             });
+            Input.inspectForm.find('select[name="value"]').select2({
+                minimumResultsForSearch : -1
+            });
             Input.inspectForm.find('select[name="fault_code"]').on('change', function(){
                 var param = {
                     param: $(this).val()
@@ -338,8 +356,10 @@
                 var faultCodeDetailName = Input.inspectForm.find('select[name="fault_code_detail"] option:selected').html(),
                     faultCodeDetailVal = Input.inspectForm.find('select[name="fault_code_detail"] option:selected').val(),
                     faultTypeName = Input.inspectForm.find('select[name="fault_types"] option:selected').html(),
-                    faultTypeVal = Input.inspectForm.find('select[name="fault_types"] option:selected').val();
-                if(faultTypeVal == "" || faultCodeDetailVal == "") {
+                    faultTypeVal = Input.inspectForm.find('select[name="fault_types"] option:selected').val()
+                    valueName = Input.inspectForm.find('select[name="value"] option:selected').html(),
+                    valueVal = Input.inspectForm.find('select[name="value"] option:selected').val();
+                if(faultTypeVal == "" || faultCodeDetailVal == "" || valueVal == "") {
                     alert('Please fulfill the fields');
                 }
                 else {
@@ -351,7 +371,9 @@
                             faultCodeDetailName: faultCodeDetailName,
                             faultCodeDetailVal: faultCodeDetailVal,
                             faultTypeName: faultTypeName,
-                            faultTypeVal: faultTypeVal
+                            faultTypeVal: faultTypeVal,
+                            valueName: valueName,
+                            valueVal: valueVal
                         };
                         Input.renderToCart(params);
                     }
