@@ -189,7 +189,7 @@
 </section>
 
 <!-- Modal Template -->
-<div class="modal fade" id="menuModal">
+<div class="modal fade" id="menuModal" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -243,7 +243,6 @@
                     <div class="form-group">
                         <label for="value" class="col-sm-3 control-label">Value</label>
                         <div class="col-sm-9">
-                            <option class="hidden" view="template"></option>
                             <select name="value" id="value" style="width:100%;" required="required">
                                 <option value="1">Bad</option>
                                 <option value="2">Fair</option>
@@ -338,7 +337,7 @@
         getMenu: function(id, name) {
             Input.params.cabinID = id;
             Input.params.no = 0;
-            Input.params.cabinID = 0;
+            //Input.params.cabinID = 0;
             Input.params.faultCodeDetailVal = '';
             Input.params.faultTypeVal = '';
             Input.params.Value = 0;
