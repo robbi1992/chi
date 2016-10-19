@@ -210,7 +210,7 @@
                             $new_value = $v['value'] / $v['num'];
                             $print = FALSE;
                             ?>
-                            <a href="<?php echo base_url('health_view/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-<?php echo performance_color($new_value);?>">
+                            <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-<?php echo performance_color($new_value);?>">
                                 <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
                             </a>
                             <?php 
@@ -218,7 +218,7 @@
                     }
                     if($print) {
                         ?>
-                        <a href="<?php echo base_url('health_view/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
+                        <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
                             <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
                         </a>
                         <?php 
@@ -226,7 +226,7 @@
                 }
                 else {
                     ?>
-                    <a href="<?php echo base_url('health_view/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
+                    <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
                         <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
                     </a>
                     <?php 
@@ -394,7 +394,7 @@
         },
         getMenu: function(id, name) {
             Input.params.cabinID = id;
-            Input.params.acRegID = '<?php echo $cabin_template[0]->aircraft_reg_fk; ?>';
+            Input.params.acRegID = '<?php echo isset($cabin_template[0]->aircraft_reg_fk) ? $cabin_template[0]->aircraft_reg_fk : ""; ?>';
             Input.params.peformanceType = "<?php echo $cabin_selected['id'];?>";
             Input.params.no = 0;
             //Input.params.cabinID = 0;

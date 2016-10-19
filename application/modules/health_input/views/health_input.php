@@ -60,14 +60,14 @@
 			}
 		};
 		$.ajax({
-			url: '<?php echo base_url() . 'health_view/get_ac_reg';?>',
+			url: '<?php echo base_url() . 'health_input/get_ac_reg';?>',
 			type: 'post',
 			dataType: 'json',
 			data: JSON.stringify(acType)
 		}).done(function(result){
 			if(result.status == 'ok') {
 				var resultData = $('[name="searchResult"]'),
-					myBaseUrl = '<?php echo base_url();?>health_view/cabin/'+acTypeName;
+					myBaseUrl = '<?php echo base_url();?>health_input/cabin/'+acTypeName;
 				//clear acType
 				resultData.find('[view="acType"]').empty().html(result.acType);
 				var template = resultData.find('[template="searchRow"]');

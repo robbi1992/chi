@@ -163,8 +163,7 @@ class health_input extends MX_Controller {
         $data['add'] = $this->page->base_url('/add');
         $data['act'] = $this->page->base_url("/list_search");
         
-		$this->page->view('kpi_cabin', $data);
-        
+		$this->page->view('exterior_view', $data);
 	}
 
     //methods for ajax request
