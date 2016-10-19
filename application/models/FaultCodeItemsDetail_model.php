@@ -83,6 +83,17 @@ class FaultCodeItemsDetail_model extends MY_Model {
 		$this->db->where('fType', $param);
 		return $this->db->get($this->table)->result();
 	}
+
+	public function list_performance($cabin_item) {	
+		$this->db->select('m_faultCodeItemDtl.id, m_faultCodeItemDtl.fCode, m_faultCodeItemDtl.fName');
+		$this->db->from($this->table);
+		$this->db->join('m_faultCodeItem', 'm_faultCodeItem.fCode = m_faultCodeItemDtl.fType');
+		$this->db->join('m_performance_type', 'm_faultCodeItem.performance_type_id = m_performance_type.id');
+		$this->db->where('m_faultCodeItem.performance_type_id', $cabin_item);
+		$get = $this->db->get();
+
+		return $get->result();
+	}
 }
 
 /* End of file Model_ac_delivery_report.php */

@@ -19,7 +19,25 @@ class health_input extends MX_Controller {
 	}
 
 	public function cabin($typeac,$typereg) {
-        
+        $this->load->model('trans_interior_model');
+        $this->load->model('AircraftReg_model');
+        //find template from cabin
+        $data_ac_reg = $this->AircraftReg_model->find($typereg, 'name_ac_reg');
+        $id_ac_reg = $data_ac_reg['id'];
+
+        $interior_performance_values = $this->trans_interior_model->list_performance('', $id_ac_reg);
+        $n = count($interior_performance_values);
+        $zero = 0;
+        if(count($interior_performance_values) > 0) {
+            foreach ($interior_performance_values as $i => $v) {
+                $total = $zero + $v['value'];
+                $zero = $total;
+            }
+            $data['interior_value'] = parsing_float($total /$n);
+        }
+        else {
+            $data['interior_value'] = 100;   
+        }
         //die($typereg);
         $data['typeac'] = $typeac;
         $data['typereg'] = $typereg;
@@ -30,13 +48,48 @@ class health_input extends MX_Controller {
 	}
 
 	public function get_ac_reg() {
-		$param = json_decode($this->input->raw_input_stream, TRUE);
 		$this->load->model('AircraftReg_model');
-		$data = $this->AircraftReg_model->list_by($param['param']);
-		
-		$this->output
-			->set_content_type('application/json')
-			->set_output(json_encode($data));
+        $this->load->model('trans_interior_model');
+
+        $param = json_decode($this->input->raw_input_stream, TRUE);     
+        //$param['param'] = array('acType' => '1', 'acTypeName' => 'CRJ1000');
+        $data = $this->AircraftReg_model->list_by($param['param']);
+
+        foreach ($data['result'] as $key => $value) {
+            $result[$key] = $value['id'];
+        }
+        // get interior value, filter by aircraft type
+        $interior_value = $this->trans_interior_model->list_performance_acType($result);
+        // create new value for support formula
+        $new_interior_value = formula_by_acReg($interior_value);
+
+        //create new return (add index performance value)
+        foreach ($data['result'] as $key => $value) {
+            $print = TRUE;
+            foreach ($new_interior_value as $i => $v) {
+                if($value['id'] == $v['acReg']) {
+                    $performance_result[] = array(
+                        'id' => $value['id'],
+                        'name_ac_reg' => $value['name_ac_reg'],
+                        'performance_interior' => parsing_float($v['value'] / $v['num'])
+                    );
+                    $print = FALSE;
+                }
+            }
+            if($print) {
+                $performance_result[] = array(
+                    'id' => $value['id'],
+                    'name_ac_reg' => $value['name_ac_reg'],
+                    'performance_interior' => 100
+                );
+            }
+        }
+
+        $data['result'] = $performance_result;
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
 	}
 
 	public function functionality($typeac,$typereg) {
@@ -58,6 +111,8 @@ class health_input extends MX_Controller {
         $this->load->model('CabinItems_model');
         $this->load->model('FaultCodeItems_model');
         $this->load->model('FaultTypes_model');
+        $this->load->model('FaultCodeItemsDetail_model');
+        $this->load->model('trans_interior_model');
 
         //find template from cabin
         $data_ac_reg = $this->AircraftReg_model->find($typereg, 'name_ac_reg');
@@ -71,8 +126,18 @@ class health_input extends MX_Controller {
         }
         //echo $id_ac_reg . $cabin_selected; exit();
         $data['cabin_template'] = $this->AircraftTemplateH_model->get_data_by($id_ac_reg, $cabin_selected);
+        $data['cabin_selected'] = $this->CabinItems_model->find($cabin_selected, 'id');
+        
+        //performance things
+        $data['item_performance'] = $this->FaultCodeItemsDetail_model->list_performance($cabin_selected);
+
+        $data['value_performance'] = $this->trans_interior_model->list_performance($cabin_selected, $id_ac_reg);
+        $data['all_value_performance'] = $this->trans_interior_model->list_performance('', $id_ac_reg);
+
+        //only for mode input
         $data['fault_by_performance'] = $this->FaultCodeItems_model->get_data_by($cabin_selected);
         $data['fault_types'] = $this->FaultTypes_model->get_all();
+        //end
         //print_r($data['fault_by_performance']); exit();
         if (count($data['cabin_template']) > 0) {
             $data['cabin_template_detail'] = $this->AircraftTemplateD_model->get_data_by($data['cabin_template'][0]->id);    
@@ -88,7 +153,6 @@ class health_input extends MX_Controller {
         $data['act'] = $this->page->base_url("/list_search");
         
 		$this->page->view('interior_view', $data);
-        
 	}
     
     public function exterior($typeac,$typereg) {

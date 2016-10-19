@@ -49,6 +49,12 @@
                     selected: true,
                     fillColor: '8bc34a',
                     fillOpacity: 100
+                },
+                { 
+                    key: "AE",
+                    selected: true,
+                    fillColor: '3C8DBC',
+                    fillOpacity: 100
                 }
                 ]
         });
@@ -70,7 +76,7 @@
 </section>
 <section class="content">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" view="mapGenerator">
             <div class="ac_cabin">
                 <?php
                 if(count($cabin_template) == 0) {
@@ -83,13 +89,33 @@
                     <img src="<?php echo base_url(); ?>assets/upload_cabin/<?php echo $cabin_template[0]->FileImage;?>" id="ImageAirCraft" class="imgmapMainImage img-responsive" alt="" usemap="#map"/>
                     <?php
                     if(count($cabin_template_detail) > 0 ) {
+                        $pv_map = formula_performance_for_map($value_performance);
                         ?>
                         <map name="map" id="map">
                         <?php
                         foreach ($cabin_template_detail as $v) {
-                            ?>
-                            <area href="#" onclick="Input.getMenu('<?php echo $v->id;?>', '<?php echo $v->noItem;?>')" state="AC" id="<?php echo $v->noItem;?>" shape="circle" coords="<?php echo $v->coordinate;?>" />
-                            <?php
+                            $has_value = FALSE;
+                            if(count($pv_map) > 0) {
+                                foreach($pv_map as $vmap) {
+                                    if($v->id == $vmap['cabinTemplate']) {
+                                        $new_val =  $vmap['value'] / $vmap['num'];
+                                        ?>
+                                        <area href="#" onclick="Input.getMenu('<?php echo $v->id;?>', '<?php echo $v->noItem;?>')" state="<?php echo map_color($new_val);?>" id="<?php echo $v->noItem;?>" shape="circle" coords="<?php echo $v->coordinate;?>" />
+                                        <?php
+                                        $has_value = TRUE;
+                                    }
+                                }
+                                if(!$has_value) {
+                                    ?>
+                                    <area href="#" onclick="Input.getMenu('<?php echo $v->id;?>', '<?php echo $v->noItem;?>')" state="AE" id="<?php echo $v->noItem;?>" shape="circle" coords="<?php echo $v->coordinate;?>" />
+                                    <?php
+                                }
+                            }
+                            else {
+                                ?>
+                                <area href="#" onclick="Input.getMenu('<?php echo $v->id;?>', '<?php echo $v->noItem;?>')" state="AE" id="<?php echo $v->noItem;?>" shape="circle" coords="<?php echo $v->coordinate;?>" />
+                                <?php
+                            }
                         }
                         ?>
                         </map>
@@ -105,82 +131,106 @@
         <div class="col-md-9">
             <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Interior Appereance - Seat</h3>
+                  <h3 class="box-title">Interior Appereance - <?php echo $cabin_selected['name_type']; ?></h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-                  <table class="table table-bordered">
-                    <tbody><tr>
-                      <th style="width: 10px">No.</th>
-                      <th>Item</th>
-                      <th colspan="2">Average</th>
-                    </tr>
-                    
-                    <?php
-                        $tag_html = '';
-                        $list_reg = array(
-                                            'Seat Cover' => array('95'),
-                                            'Seat Cushion' => array('50'),
-                                            'Ottoman (Foot Rest)' => array('95'),
-                                            'Seat Belt' => array('60'),
-                                            'Amrest set' => array('70'),
-                                            'folding Table' => array('95'),
-                                            'Table Compartment' => array('99'),
-                                            'Literature Pocket' => array('60'),
-                                            'Snake Light' => array('100'),
-                                            'Shell & Bumper' => array('95'),
-                                            'Video Monitor' => array('100'),
-                                            'Pax. Control Unit' => array('95'),
-                                            'IFE Control' => array('100')
-                                         );
-                        $i = 1;
-                        $progress = '';
-                        foreach($list_reg as $key => $value ){
-                            
-                            foreach($value as $key2 => $value2 ){
-                            
-                                if($value2 >= 80){
-                                    $progress = 'success';
-                                    $bg = 'green';
-                                }elseif($value2 <= 80 AND $value2 >= 60){
-                                    $progress = 'warning';
-                                    $bg = 'yellow';
-                                }elseif($value2 <= 60 ){
-                                    $progress = 'danger';
-                                    $bg = 'red';
+                    <table class="table table-bordered">
+                        <thead>
+                            <thead>
+                                <tr>
+                                    <th width="10%">No.</th>
+                                    <th width="30%">Item</th>
+                                    <th width="50%">Chart</th>
+                                    <th width="10%">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $value_performance = formula_performance_value($value_performance);
+                                //exit();
+                                $no = 1;
+                                foreach ($item_performance as $i => $v) {                             
+                                    $print = TRUE;
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $no;?></td>
+                                        <td><?php echo $v->fName;?></td>
+                                        <?php
+                                            if(count($value_performance) > 0) {
+                                                foreach($value_performance as $vals) {
+                                                    if($v->id == $vals['faultCode']) {
+                                                        $new_val =  $vals['value'] / $vals['num'];
+                                                        ?>
+                                                        <td>
+                                                            <div class="progress progress-xs">
+                                                                <div class="progress-bar progress-bar-<?php echo performance($new_val);?>" style="width: <?php echo $new_val; ?>%">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><?php echo parsing_float($new_val); ?> %</td>
+                                                        <?php
+                                                        $print = FALSE;
+                                                    }
+                                                    /*else {
+                                                        echo '<td>Not inspected yet</td>'; 
+                                                        echo '<td>Not inspected yet</td>';        
+                                                    }*/
+                                                }
+                                                if($print) {
+                                                    echo '<td>Not set yet</td>';
+                                                    echo '<td>Not set yet</td>'; 
+                                                }    
+                                            }
+                                            else {
+                                                echo '<td>Not set yet</td>';
+                                                echo '<td>Not set yet</td>';
+                                            }
+                                        ?>
+                                    </tr>
+                                    <?php
+                                    $no++;
                                 }
-                            
-                                echo '<tr>
-                                      <td>'. $i .'</td>
-                                      <td style="width:200px;">'. $key .'</td>
-                                      <td style="width:200px;">
-                                        <div class="progress progress-xs">
-                                          <div class="progress-bar progress-bar-'. $progress .'" style="width: '. $value2 .'%"></div>
-                                        </div>
-                                      </td>
-                                      <td style="text-align: center; width:50px;">
-                                        <span class="badge bg-'. $bg .'">'. $value2 .'</span>                                        
-                                      </td>
-                                    </tr>';
-                            
-                            }
-                            $i++;
-                        }
-                    ?>
-                    
-                  </tbody></table>
+                                ?>
+                            </tbody>
+                        </thead>
+                    </table>
                 </div>
                 <!-- /.box-body -->
             </div>
         </div>
         <div class="col-md-3">
             <?php
+            $all_performance_value = formula_all_performance($all_value_performance);
             foreach ($cabins as $key => $value) {
-                ?>
-                <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
-                    <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
-                </a>
-                <?php   
+                $print = TRUE;
+                if (count($all_performance_value) > 0) {
+                    foreach ($all_performance_value as $i => $v) {
+                        if($value->id == $v['cabin']) {
+                            $new_value = $v['value'] / $v['num'];
+                            $print = FALSE;
+                            ?>
+                            <a href="<?php echo base_url('health_view/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-<?php echo performance_color($new_value);?>">
+                                <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
+                            </a>
+                            <?php 
+                        }
+                    }
+                    if($print) {
+                        ?>
+                        <a href="<?php echo base_url('health_view/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
+                            <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
+                        </a>
+                        <?php 
+                    }
+                }
+                else {
+                    ?>
+                    <a href="<?php echo base_url('health_view/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
+                        <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
+                    </a>
+                    <?php 
+                }  
             }
             ?>
         </div>
@@ -243,12 +293,16 @@
                     <div class="form-group">
                         <label for="value" class="col-sm-3 control-label">Value</label>
                         <div class="col-sm-9">
-                            <select name="value" id="value" style="width:100%;" required="required">
+                            <div class="input-group" id="value">
+                                <input type="text" name="value" class="form-control" placeholder="Performance Value" aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2">%</span>
+                            </div>
+                            <!--<select name="value" id="value" style="width:100%;" required="required">
                                 <option value="1">Bad</option>
                                 <option value="2">Fair</option>
                                 <option value="3">Good</option>
                                 <option value="4" selected="selected">Excellent</option>
-                            </select>
+                            </select>-->
                         </div>
                     </div>
                     <button type="button" class="btn btn-success btn-xs pull-right" name="btn-insert">Insert to cart</button>
@@ -295,6 +349,8 @@
             faultCodeDetailVal: '',
             faultTypeVal: '',
             value: 0,
+            acRegID: 0,
+            peformanceType: 0,
             transInterior: [],
             isneedsave: false
         },
@@ -329,13 +385,17 @@
                 fcid_fault_code: Input.params.faultCodeDetailVal,
                 ft_fault_type: Input.params.faultTypeVal,
                 value: Input.params.value,
-                catd_id: Input.params.cabinID
+                catd_id: Input.params.cabinID,
+                ac_reg_id: Input.params.acRegID,
+                pt_id: Input.params.peformanceType
             };
             Input.params.transInterior.push(data);
             //console.log(Input.params.transInterior);
         },
         getMenu: function(id, name) {
             Input.params.cabinID = id;
+            Input.params.acRegID = '<?php echo $cabin_template[0]->aircraft_reg_fk; ?>';
+            Input.params.peformanceType = "<?php echo $cabin_selected['id'];?>";
             Input.params.no = 0;
             //Input.params.cabinID = 0;
             Input.params.faultCodeDetailVal = '';
@@ -366,9 +426,9 @@
             Input.inspectForm.find('select[name="fault_types"]').select2({
                 placeholder: 'Choose fault type'
             });
-            Input.inspectForm.find('select[name="value"]').select2({
+            /*Input.inspectForm.find('select[name="value"]').select2({
                 minimumResultsForSearch : -1
-            });
+            });*/
             Input.inspectForm.find('select[name="fault_code"]').on('change', function(){
                 var param = {
                     param: $(this).val()
@@ -379,9 +439,11 @@
                 var faultCodeDetailName = Input.inspectForm.find('select[name="fault_code_detail"] option:selected').html(),
                     faultCodeDetailVal = Input.inspectForm.find('select[name="fault_code_detail"] option:selected').val(),
                     faultTypeName = Input.inspectForm.find('select[name="fault_types"] option:selected').html(),
-                    faultTypeVal = Input.inspectForm.find('select[name="fault_types"] option:selected').val()
-                    valueName = Input.inspectForm.find('select[name="value"] option:selected').html(),
-                    valueVal = Input.inspectForm.find('select[name="value"] option:selected').val();
+                    faultTypeVal = Input.inspectForm.find('select[name="fault_types"] option:selected').val(),
+                    valueName = Input.inspectForm.find('input[name="value"]').val(),
+                    valueVal = Input.inspectForm.find('input[name="value"]').val();
+                    //valueName = Input.inspectForm.find('select[name="value"] option:selected').html(),
+                    //valueVal = Input.inspectForm.find('select[name="value"] option:selected').val();
                 if(faultTypeVal == "" || faultCodeDetailVal == "" || valueVal == "") {
                     alert('Please fulfill the fields');
                 }
@@ -418,7 +480,7 @@
                             }
                             else {
                                 alert('Data saved');
-                                $('#menuModal').modal('hide');       
+                                window.location.reload();    
                             }
                         }
                     }).fail(function(){

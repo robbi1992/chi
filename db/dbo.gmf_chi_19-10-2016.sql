@@ -11,7 +11,7 @@ Target Server Type    : SQL Server
 Target Server Version : 110000
 File Encoding         : 65001
 
-Date: 2016-10-15 01:15:22
+Date: 2016-10-19 13:39:51
 */
 
 
@@ -8280,10 +8280,12 @@ GO
 DROP TABLE [dbo].[trans_interior]
 GO
 CREATE TABLE [dbo].[trans_interior] (
-[fcid_fault_code] varchar(8) NULL ,
-[ft_fault_type] varchar(8) NULL ,
-[value] tinyint NULL ,
-[catd_id] int NULL 
+[fcid_fault_code] varchar(8) NOT NULL ,
+[ft_fault_type] varchar(8) NOT NULL ,
+[value] tinyint NOT NULL ,
+[catd_id] int NOT NULL ,
+[ac_reg_id] int NOT NULL ,
+[pt_id] int NOT NULL 
 )
 
 
@@ -8292,6 +8294,36 @@ GO
 -- ----------------------------
 -- Records of trans_interior
 -- ----------------------------
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'98', N'00', N'70', N'2475', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'98', N'03', N'90', N'2475', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'99', N'02', N'100', N'2476', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'101', N'02', N'90', N'2476', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'101', N'04', N'95', N'2477', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'101', N'05', N'90', N'2477', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'100', N'00', N'50', N'2477', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'97', N'00', N'100', N'2474', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'100', N'00', N'100', N'2475', N'1', N'4')
+GO
+GO
+INSERT INTO [dbo].[trans_interior] ([fcid_fault_code], [ft_fault_type], [value], [catd_id], [ac_reg_id], [pt_id]) VALUES (N'100', N'01', N'100', N'2475', N'1', N'4')
+GO
+GO
 
 -- ----------------------------
 -- Table structure for users

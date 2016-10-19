@@ -271,6 +271,133 @@ function generate_code_date(){
 	}
 	return $reg;
 }
+// 18-10-16
+function formula_performance_value($data) {
+	if(count($data) > 0) {
+		$new_array = array_reduce($data, function($a, $b) {
+			if(isset($a[$b['faultCode']])) {
+				$a[$b['faultCode']]['value'] += $b['value'];
+				$a[$b['faultCode']]['num'] += $b['num'];
+			}
+			else {
+				$a[$b['faultCode']] = $b;	
+			}
+			return $a;
+		});
+		return array_values($new_array);
+	}
+	return array();
+}
 
+function formula_performance_for_map($data) {
+	if(count($data) > 0) {
+		$new_array = array_reduce($data, function($a, $b) {
+			if(isset($a[$b['cabinTemplate']])) {
+				$a[$b['cabinTemplate']]['value'] += $b['value'];
+				$a[$b['cabinTemplate']]['num'] += $b['num'];
+			}
+			else {
+				$a[$b['cabinTemplate']] = $b;	
+			}
+			return $a;
+		});
+		return array_values($new_array);
+	}
+	return array();
+}
+
+function formula_all_performance($data) {
+	if(count($data) > 0) {
+		$new_array = array_reduce($data, function($a, $b) {
+			if(isset($a[$b['cabin']])) {
+				$a[$b['cabin']]['value'] += $b['value'];
+				$a[$b['cabin']]['num'] += $b['num'];
+			}
+			else {
+				$a[$b['cabin']] = $b;	
+			}
+			return $a;
+		});
+		return array_values($new_array);
+	}
+	return array();
+}
+
+function formula_by_acReg($acReg) {
+	if(count($acReg) > 0) {
+		$new_array = array_reduce($acReg, function($a, $b) {
+			if(isset($a[$b['acReg']])) {
+				$a[$b['acReg']]['value'] += $b['value'];
+				$a[$b['acReg']]['num'] += $b['num'];
+			}
+			else {
+				$a[$b['acReg']] = $b;	
+			}
+			return $a;
+		});
+		return array_values($new_array);
+	}
+	return array();
+}
+
+function performance($value) {
+    if($value >= 96 && $value <= 100) {
+    	$result = 'info';
+    }
+    elseif($value >= 85 && $value < 96) {
+    	$result = 'success';
+    }
+    elseif($value >= 75 && $value < 85) {
+    	$result = 'warning';
+    }
+    elseif($value > 0 && $value < 75) {
+    	$result = 'danger';
+    }
+    else {
+    	$result = 'undefined';
+    }
+    return $result;
+}
+
+function performance_color($value) {
+    if($value >= 96 && $value <= 100) {
+    	$result = 'blue';
+    }
+    elseif($value >= 85 && $value < 96) {
+    	$result = 'green';
+    }
+    elseif($value >= 75 && $value < 85) {
+    	$result = 'yellow';
+    }
+    elseif($value > 0 && $value < 75) {
+    	$result = 'red';
+    }
+    else {
+    	$result = 'undefined';
+    }
+    return $result;
+}
+
+function map_color($value) {
+    if($value >= 96 && $value <= 100) {
+    	$result = 'AE';
+    }
+    elseif($value >= 85 && $value < 96) {
+    	$result = 'AC';
+    }
+    elseif($value >= 75 && $value < 85) {
+    	$result = 'AS';
+    }
+    elseif($value > 0 && $value < 75) {
+    	$result = 'AD';
+    }
+    else {
+    	$result = 'undefined';
+    }
+    return $result;
+}
+function parsing_float($value) {
+	return is_float($value) ? sprintf('%.2f', $value) : $value;
+}
 /* End of file gmf_helper.php */
 /* Location: ./application/helpers/gmf_helper.php */
