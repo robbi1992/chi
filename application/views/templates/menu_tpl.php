@@ -2,7 +2,9 @@
   <div class="container-fluid">
     <div class="navbar-header">
         <ul id="navbar" class="nav navbar-nav navbar-dashbrdAdmin">
-            <li><a href="<?php echo site_url(); ?>"><span>Beranda</span></a></li>
+            <li><a href="<?php echo site_url();?>"><span>Beranda</span></a></li>
+            <li><a href="<?php echo site_url('/root/functionality');?>"><span>Functionality</span></a></li>
+			<li><a href="<?php echo site_url('/root');?>"><span>Interior Appearance</span></a></li>
             <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Interior Appereance <span class="caret"></span></a>
             	<ul class="dropdown-menu" role="menu">
             		<li><a href="<?php echo site_url('/InteriorAprcMng/IntrSeat/'); ?>"><span>Seat</span></a></li>

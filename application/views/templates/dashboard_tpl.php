@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,25 +101,25 @@
                                         <div class="main-menu">
                                             <div class="row">
                                                 <div class="main-menu-chi">
-                                                    <div class="col-md-2 col-xs-3 col-md-offset-3 col-xs-offset-3">
-                                                        <a href="<?php echo base_url('/health_view'); ?>" class="btn btn-block btn-primary">
+                                                    <div class="col-md-2 col-xs-12 col-md-offset-3">
+                                                        <a href="<?php echo site_url('/view/aircraft_type'); ?>" class="btn btn-block btn-primary">
                                                             <i class="fa fa-eye fa-5x"></i> 
                                                             <br />
                                                             VIEW
                                                         </a>
                                                     </div>
-                                                    <div class="col-md-2 col-xs-3">
-                                                        <a href="<?php echo base_url('/health_input'); ?>" class="btn btn-block btn-primary">
+                                                    <div class="col-md-2 col-xs-12">
+                                                        <a href="<?php echo site_url('/input/aircraft_type'); ?>" class="btn btn-block btn-primary">
                                                             <i class="fa fa-edit fa-5x"></i> 
                                                             <br /> 
                                                             INPUT
                                                         </a>
                                                     </div>
-                                                    <div class="col-md-2 col-xs-3">
-                                                        <a href="<?php echo base_url('/health_trend'); ?>" class="btn btn-block btn-primary">
+                                                    <div class="col-md-2 col-xs-12">
+                                                        <a href="<?php echo site_url('/report'); ?>" class="btn btn-block btn-primary">
                                                             <i class="fa fa-line-chart fa-5x"></i> 
                                                             <br /> 
-                                                            TREND
+                                                            DASHBOARD
                                                         </a>
                                                     </div>
                                                 </div>
@@ -125,11 +127,6 @@
                                         </div>
                                     </section>                                   
                                     <?php endif; ?>
-                                  
-                                  
-                                  
-                                
-                                    
                                 </div>
             				</div>
                         </div>

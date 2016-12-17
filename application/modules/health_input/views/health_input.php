@@ -11,15 +11,22 @@
 	<?php
 	foreach($list as $v):
 	?>
+		<!-- show only b777-300 -->
+		<?php
+		if($v->id == 7) {
+		?>
 		<div class="col-lg-3 col-xs-6">
 		<!-- small box -->
+		
 			<div class="small-box bg-primary my-link" onClick="getDataAC('<?php echo $v->id;?>','<?php echo $v->name_aircraft;?>')">
 				<div class="inner">
 				<h6 class="text-center"><strong><?php echo $v->name_aircraft;?></strong></h6>
 				</div>
 			</div>
+		
 		</div>
-	<?php
+		<?php
+		}
 	endforeach;
 	?>
 	</div>
@@ -60,23 +67,30 @@
 			}
 		};
 		$.ajax({
-			url: '<?php echo base_url() . 'health_input/get_ac_reg';?>',
+			url: '<?php echo site_url() . '/health_input/get_ac_reg';?>',
 			type: 'post',
 			dataType: 'json',
 			data: JSON.stringify(acType)
 		}).done(function(result){
 			if(result.status == 'ok') {
 				var resultData = $('[name="searchResult"]'),
-					myBaseUrl = '<?php echo base_url();?>health_input/cabin/'+acTypeName;
+					myBaseUrl = '<?php echo site_url();?>/health_input/cabin/'+acTypeName;
 				//clear acType
 				resultData.find('[view="acType"]').empty().html(result.acType);
 				var template = resultData.find('[template="searchRow"]');
 				var rows = resultData.find('.row').empty();
 				
 				$.each(result.result, function(index, value) {
-					var row = template.clone().removeClass('hidden').removeAttr('template');
+					var row = template.clone().removeClass('hidden').removeAttr('template'),
+						new_value = ((parseFloat(value.performance_interior) + parseFloat(value.performance_exterior)) / 2).toFixed(2);
 
-					if(value.performance_interior >= 96 && value.performance_interior <= 100) {
+					if (new_value >= 96 && new_value <= 100) {
+						myBg = 'bg-green';
+					}
+					else {
+						myBg = 'bg-red';
+					}
+					/*if(value.performance_interior >= 96 && value.performance_interior <= 100) {
 						myBg = 'bg-blue';
 					}
 					else if(value.performance_interior >= 85 && value.performance_interior < 96) {
@@ -90,16 +104,19 @@
 					}					
 					else {
 						myBg = 'undefined';
-					}
+					}*/
 
 					row.find('[view="acRegName"]').html(value.name_ac_reg);
-					row.find('[view="acRegPerform"]').html(value.performance_interior + '%');
+					row.find('[view="acRegPerform"]').html(new_value + '%');
 					row.find('div.small-box').addClass(myBg);
 					row.find('a').attr('href', myBaseUrl + '/' +value.name_ac_reg)
 						.attr('title', 'click to view health index detail');
 					row.appendTo(rows);
 				});
 				resultData.removeClass('hidden');
+				$('html, body').animate({
+        		scrollTop: resultData.offset().top
+    			}, 2000);
 			}
 			else {
 				alert('Any something wrong, please try again later');

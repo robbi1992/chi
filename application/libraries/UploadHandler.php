@@ -40,8 +40,9 @@ class UploadHandler
 
     protected $image_objects = array();
 
-    public function __construct($options = null, $initialize = true, $error_messages = null) {
+    public function __construct($unique = null, $options = null, $initialize = true, $error_messages = null) {
         $this->response = array();
+        $this->unique = $unique;
         $this->options = array(
             'script_url' => $this->get_full_url().'/'.$this->basename($this->get_server_var('SCRIPT_NAME')) .'/uploader',
             'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/assets/images/exteriors/',
@@ -93,7 +94,7 @@ class UploadHandler
             'accept_file_types' => '/.+$/i',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
-            'max_file_size' => null,
+            'max_file_size' => 200000,
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
             'max_number_of_files' => null,
@@ -158,7 +159,7 @@ class UploadHandler
                     'max_height' => 80
                 )
             ),
-            'print_response' => true
+            'print_response' => false
         );
         if ($options) {
             $this->options = $options + $this->options;
@@ -183,7 +184,7 @@ class UploadHandler
             case 'PATCH':
             case 'PUT':
             case 'POST':
-                $this->post($this->options['print_response']);
+                $this->post($this->options['print_response'], $this->unique);
                 break;
             case 'DELETE':
                 $this->delete($this->options['print_response']);
@@ -305,7 +306,7 @@ class UploadHandler
 
     protected function get_file_object($file_name) {
         if ($this->is_valid_file_object($file_name)) {
-            $file = new \stdClass();
+            $file = new stdClass();
             $file->name = $file_name;
             $file->size = $this->get_file_size(
                 $this->get_upload_path($file_name)
@@ -787,7 +788,7 @@ class UploadHandler
     protected function imagick_get_image_object($file_path, $no_cache = false) {
         if (empty($this->image_objects[$file_path]) || $no_cache) {
             $this->imagick_destroy_image_object($file_path);
-            $image = new \Imagick();
+            $image = new Imagick();
             if (!empty($this->options['imagick_resource_limits'])) {
                 foreach ($this->options['imagick_resource_limits'] as $type => $limit) {
                     $image->setResourceLimit($type, $limit);
@@ -811,35 +812,35 @@ class UploadHandler
 
     protected function imagick_orient_image($image) {
         $orientation = $image->getImageOrientation();
-        $background = new \ImagickPixel('none');
+        $background = new ImagickPixel('none');
         switch ($orientation) {
-            case \imagick::ORIENTATION_TOPRIGHT: // 2
+            case imagick::ORIENTATION_TOPRIGHT: // 2
                 $image->flopImage(); // horizontal flop around y-axis
                 break;
-            case \imagick::ORIENTATION_BOTTOMRIGHT: // 3
+            case imagick::ORIENTATION_BOTTOMRIGHT: // 3
                 $image->rotateImage($background, 180);
                 break;
-            case \imagick::ORIENTATION_BOTTOMLEFT: // 4
+            case imagick::ORIENTATION_BOTTOMLEFT: // 4
                 $image->flipImage(); // vertical flip around x-axis
                 break;
-            case \imagick::ORIENTATION_LEFTTOP: // 5
+            case imagick::ORIENTATION_LEFTTOP: // 5
                 $image->flopImage(); // horizontal flop around y-axis
                 $image->rotateImage($background, 270);
                 break;
-            case \imagick::ORIENTATION_RIGHTTOP: // 6
+            case imagick::ORIENTATION_RIGHTTOP: // 6
                 $image->rotateImage($background, 90);
                 break;
-            case \imagick::ORIENTATION_RIGHTBOTTOM: // 7
+            case imagick::ORIENTATION_RIGHTBOTTOM: // 7
                 $image->flipImage(); // vertical flip around x-axis
                 $image->rotateImage($background, 270);
                 break;
-            case \imagick::ORIENTATION_LEFTBOTTOM: // 8
+            case imagick::ORIENTATION_LEFTBOTTOM: // 8
                 $image->rotateImage($background, 270);
                 break;
             default:
                 return false;
         }
-        $image->setImageOrientation(\imagick::ORIENTATION_TOPLEFT); // 1
+        $image->setImageOrientation(imagick::ORIENTATION_TOPLEFT); // 1
         return true;
     }
 
@@ -892,7 +893,7 @@ class UploadHandler
         $success = $image->resizeImage(
             $new_width,
             $new_height,
-            isset($options['filter']) ? $options['filter'] : \imagick::FILTER_LANCZOS,
+            isset($options['filter']) ? $options['filter'] : imagick::FILTER_LANCZOS,
             isset($options['blur']) ? $options['blur'] : 1,
             $new_width && $new_height // fit image into constraints if not to be cropped
         );
@@ -912,7 +913,7 @@ class UploadHandler
             case 'jpg':
             case 'jpeg':
                 if (!empty($options['jpeg_quality'])) {
-                    $image->setImageCompression(\imagick::COMPRESSION_JPEG);
+                    $image->setImageCompression(imagick::COMPRESSION_JPEG);
                     $image->setImageCompressionQuality($options['jpeg_quality']);
                 }
                 break;
@@ -970,7 +971,7 @@ class UploadHandler
     protected function get_image_size($file_path) {
         if ($this->options['image_library']) {
             if (extension_loaded('imagick')) {
-                $image = new \Imagick();
+                $image = new Imagick();
                 try {
                     if (@$image->pingImage($file_path)) {
                         $dimensions = array($image->getImageWidth(), $image->getImageHeight());
@@ -978,7 +979,7 @@ class UploadHandler
                         return $dimensions;
                     }
                     return false;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     error_log($e->getMessage());
                 }
             }
@@ -1055,7 +1056,7 @@ class UploadHandler
 
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
-        $file = new \stdClass();
+        $file = new stdClass();
         $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
         $file->size = $this->fix_integer_overflow((int)$size);
@@ -1290,10 +1291,22 @@ class UploadHandler
     }
 
     public function get($print_response = true) {
-        if ($print_response && $this->get_query_param('download')) {
+        $CI =& get_instance();
+        $param = $CI->input->get('ac_reg');
+
+        $CI->load->model('trans_exterior_model');
+        $result = $CI->trans_exterior_model->get_images($param);
+
+        $response = array();
+        foreach ($result as $value) {
+            $response[] = $this->get_file_object($value->eif_url);
+        }
+        #here then
+        /*if ($print_response && $this->get_query_param('download')) {
             return $this->download();
         }
         $file_name = $this->get_file_name_param();
+        //$file_name = $this->unique;
         if ($file_name) {
             $response = array(
                 $this->get_singular_param_name() => $this->get_file_object($file_name)
@@ -1302,23 +1315,24 @@ class UploadHandler
             $response = array(
                 $this->options['param_name'] => $this->get_file_objects()
             );
-        }
+        }*/
         return $this->generate_response($response, $print_response);
     }
 
-    public function post($print_response = true) {
+    public function post($print_response = true, $unique = '') {
         if ($this->get_query_param('_method') === 'DELETE') {
             return $this->delete($print_response);
         }
         $upload = $this->get_upload_data($this->options['param_name']);
         // Parse the Content-Disposition header, if available:
-        $content_disposition_header = $this->get_server_var('HTTP_CONTENT_DISPOSITION');
-        $file_name = $content_disposition_header ?
+        $content_disposition_header = $this->get_server_var('HTTP_CONTENT_DISPOStimeITION');
+        /*$file_name = $content_disposition_header ?
             rawurldecode(preg_replace(
                 '/(^[^"]+")|("$)/',
                 '',
                 $content_disposition_header
-            )) : null;
+            )) : null;*/
+        $file_name = $unique;
         // Parse the Content-Range header, which has the following form:
         // Content-Range: bytes 0-524287/2000000
         $content_range_header = $this->get_server_var('HTTP_CONTENT_RANGE');
@@ -1333,7 +1347,7 @@ class UploadHandler
                 foreach ($upload['tmp_name'] as $index => $value) {
                     $files[] = $this->handle_file_upload(
                         $upload['tmp_name'][$index],
-                        $file_name ? time() . '_' . $file_name : time() . '_' . $upload['name'][$index],
+                        $file_name ? $file_name : $upload['name'][$index],
                         $size ? $size : $upload['size'][$index],
                         $upload['type'][$index],
                         $upload['error'][$index],

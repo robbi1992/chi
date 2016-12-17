@@ -274,68 +274,64 @@ function generate_code_date(){
 // 18-10-16
 function formula_performance_value($data) {
 	if(count($data) > 0) {
-		$new_array = array_reduce($data, function($a, $b) {
-			if(isset($a[$b['faultCode']])) {
-				$a[$b['faultCode']]['value'] += $b['value'];
-				$a[$b['faultCode']]['num'] += $b['num'];
+		foreach ($data as $key => $value) {
+			if(isset($result[$value['faultCode']])) {
+				$result[$value['faultCode']]['value'] += $value['value'];
+				$result[$value['faultCode']]['num'] += $value['num'];
 			}
 			else {
-				$a[$b['faultCode']] = $b;	
+				$result[$value['faultCode']] = $value;
 			}
-			return $a;
-		});
-		return array_values($new_array);
+		}
+		return array_values($result);
 	}
 	return array();
 }
 
 function formula_performance_for_map($data) {
 	if(count($data) > 0) {
-		$new_array = array_reduce($data, function($a, $b) {
-			if(isset($a[$b['cabinTemplate']])) {
-				$a[$b['cabinTemplate']]['value'] += $b['value'];
-				$a[$b['cabinTemplate']]['num'] += $b['num'];
+		foreach ($data as $key => $value) {
+			if(isset($result[$value['cabinTemplate']])) {
+				$result[$value['cabinTemplate']]['value'] += $value['value'];
+				$result[$value['cabinTemplate']]['num'] += $value['num'];
 			}
 			else {
-				$a[$b['cabinTemplate']] = $b;	
+				$result[$value['cabinTemplate']] = $value;
 			}
-			return $a;
-		});
-		return array_values($new_array);
+		}
+		return array_values($result);
 	}
 	return array();
 }
 
 function formula_all_performance($data) {
 	if(count($data) > 0) {
-		$new_array = array_reduce($data, function($a, $b) {
-			if(isset($a[$b['cabin']])) {
-				$a[$b['cabin']]['value'] += $b['value'];
-				$a[$b['cabin']]['num'] += $b['num'];
+		foreach ($data as $key => $value) {
+			if(isset($result[$value['cabin']])) {
+				$result[$value['cabin']]['value'] += $value['value'];
+				$result[$value['cabin']]['num'] += $value['num'];
 			}
 			else {
-				$a[$b['cabin']] = $b;	
+				$result[$value['cabin']] = $value;
 			}
-			return $a;
-		});
-		return array_values($new_array);
+		}
+		return array_values($result);
 	}
 	return array();
 }
 
 function formula_by_acReg($acReg) {
 	if(count($acReg) > 0) {
-		$new_array = array_reduce($acReg, function($a, $b) {
-			if(isset($a[$b['acReg']])) {
-				$a[$b['acReg']]['value'] += $b['value'];
-				$a[$b['acReg']]['num'] += $b['num'];
+		foreach ($acReg as $key => $value) {
+			if(isset($result[$value['acReg']])) {
+				$result[$value['acReg']]['value'] += $value['value'];
+				$result[$value['acReg']]['num'] += $value['num'];
 			}
 			else {
-				$a[$b['acReg']] = $b;	
+				$result[$value['acReg']] = $value;
 			}
-			return $a;
-		});
-		return array_values($new_array);
+		}
+		return array_values($result);
 	}
 	return array();
 }
@@ -397,7 +393,7 @@ function map_color($value) {
     return $result;
 }
 function parsing_float($value) {
-	return is_float($value) ? sprintf('%.2f', $value) : $value;
+	return is_float($value) ? floatval(sprintf('%.2f', $value)) : intval($value);
 }
 /* End of file gmf_helper.php */
 /* Location: ./application/helpers/gmf_helper.php */

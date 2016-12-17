@@ -87,6 +87,17 @@ class AircraftReg_model extends MY_Model {
 		}
 		return $result;
 	}
+
+	public function get_params($acType) {
+		$this->db->select('id');
+		$this->db->where('id_aircraft_type_fk', $acType);
+		$get = $this->db->get($this->table);
+		
+		foreach($get->result_array() as $val) {
+			$result[] = $val['id'];
+		}
+		return $result;
+	}
 	
 }
 

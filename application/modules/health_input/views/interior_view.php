@@ -23,7 +23,7 @@
     }
     
         
-	$().ready(function(){
+    $().ready(function(){
         
         var img = $('img');
         img.mapster({
@@ -72,7 +72,7 @@
 
 
 <section class="content-header">
-	<h1>Interior Appereance<small><i class="fa fa-fw fa-angle-double-right"></i><b><?php echo $typeac; ?> <i class="fa fa-fw fa-angle-double-right"></i> <?php echo $typereg; ?></b></small></h1>
+    <h1>Interior Appereance<small><i class="fa fa-fw fa-angle-double-right"></i><b><?php echo $typeac; ?> <i class="fa fa-fw fa-angle-double-right"></i> <?php echo $typereg; ?></b></small></h1>
 </section>
 <section class="content">
     <div class="row">
@@ -210,7 +210,7 @@
                             $new_value = $v['value'] / $v['num'];
                             $print = FALSE;
                             ?>
-                            <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-<?php echo performance_color($new_value);?>">
+                            <a href="<?php echo site_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-<?php echo performance_color($new_value);?>">
                                 <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
                             </a>
                             <?php 
@@ -218,7 +218,7 @@
                     }
                     if($print) {
                         ?>
-                        <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
+                        <a href="<?php echo site_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
                             <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
                         </a>
                         <?php 
@@ -226,7 +226,7 @@
                 }
                 else {
                     ?>
-                    <a href="<?php echo base_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
+                    <a href="<?php echo site_url('health_input/interior/' . $typeac . '/' . $typereg . '/' . $value->id);?>" class="btn btn-lg btn-block btn-social bg-blue">
                         <i class="fa fa-chevron-circle-right"></i> <?php echo $value->name_type; ?>
                     </a>
                     <?php 
@@ -354,7 +354,7 @@
             transInterior: [],
             isneedsave: false
         },
-        baseUrl: '<?php echo base_url('health_input');?>/',
+        baseUrl: '<?php echo site_url('health_input');?>/',
         inspectForm: $('form[name="inspection_form"]'),
         renderToDetail: function(listDetail) {
             var rows = Input.inspectForm.find('select[name="fault_code_detail"]').empty(),

@@ -20,7 +20,7 @@ $(function () {
         //xhrFields: {withCredentials: true},
         //url: 'server/php/'
         url: myBaseUrl,
-        maxFileSize: 999000,
+        maxFileSize: 200000,
     });
 
     // Enable iframe cross-domain access via redirect option:

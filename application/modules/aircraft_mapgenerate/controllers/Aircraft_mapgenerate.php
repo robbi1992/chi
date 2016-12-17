@@ -114,8 +114,7 @@ class Aircraft_mapgenerate extends MX_Controller {
         
     }
     
-    public function upload_image(){
-        
+    public function upload_image(){           
          if($this->input->post(NULL, TRUE)){
             
             if(!empty($_FILES['imgInp']['tmp_name'])){
@@ -194,12 +193,11 @@ class Aircraft_mapgenerate extends MX_Controller {
                         $this->AircraftTemplateD_model->add($data_postD);    
                         
                     }
-                    
+                        
                     redirect('/Aircraft_mapgenerate/list_template', 'refresh');
                     
                 }
-    
-            
+                
             }else{
                    
                     ini_set('max_execution_time', 1800);
