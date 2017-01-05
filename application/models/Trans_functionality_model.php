@@ -89,7 +89,7 @@ class Trans_functionality_model extends CI_Model {
 	}
 
 	public function get_trans_chart($regs = array(), $area = '', $galley = '') {
-		$this->db->select('acr_id, name_ac_reg, items, defects, remark, fi_id');
+		$this->db->select('acr_id, name_ac_reg, items, defects, remark, fi_id, corrective_action');
 		$this->db->from('trans_functionality');
 		if (count($regs) > 0) $this->db->where_in('acr_id', $regs);
 		$this->db->where('defects >', 0);
@@ -149,5 +149,19 @@ class Trans_functionality_model extends CI_Model {
 			$result[$value['fi_id']] = $value['items'];
 		}
 		return $result;
+	}
+
+	public function update_ca($params) {
+		$this->db->where('acr_id', $params['regID']);
+		$this->db->where('fis_id', $params['fisID']);
+		$this->db->where('fi_id', $params['fiID']);
+		$this->db->where('items', $params['item']);
+		$this->db->where('modified_date', $params['date']);
+		$this->db->set('corrective_action', $params['ca']);
+
+		if ($this->db->update('trans_functionality')) {
+			return $params['ca'];
+		}
+		return false;
 	}
 }

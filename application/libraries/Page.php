@@ -46,12 +46,12 @@ class Page {
 			if($cek2 == 'logout') {
 				
 			}
-			elseif($this->_CI->session->userdata('users') != '') {
+			elseif($this->_CI->session->userdata('users_logged_in') != '') {
 				redirect(site_url('/dashboard/'));
 			}
 		}
 		else {
-			if($this->_CI->session->userdata('users') == '') {
+			if($this->_CI->session->userdata('users_logged_in') == '') {
 				redirect(base_url());
 			}
 			else{

@@ -92,15 +92,19 @@
 			},//end function
 			generateChart: function(data){
 				myCharts.gauge.options.series[0].data = data.perform;
+				$('#chartGauge').removeClass('hidden');
 				Highcharts.chart('chartGauge', myCharts.gauge.options);
 			},
 			sendRequest: function(param) {
+				$('img[name="chartGaugeLoading"]').removeClass('hidden');
+				$('#chartGauge').addClass('hidden');
 				$.ajax({
 					url: myBaseUrl + '/gauge',
 					type: 'POST',
 					dataType: 'JSON',
 					data: JSON.stringify(param)
 				}).done(function(result) {
+					$('img[name="chartGaugeLoading"]').addClass('hidden');
 					myCharts.gauge.generateChart(result);
 				});	
 			},
@@ -180,7 +184,7 @@
 			    },
 			    {
 			        name: 'Target',
-			        color: '#DD4B39',
+			        color: '#0f2233',
 			        data: [3, 1.45]
 			    }
 			    ]
@@ -189,9 +193,12 @@
 				myCharts.hil.options.subtitle.text = myCharts.hil.param.subtitle;
 				myCharts.hil.options.series[0].data = result.ratios;
 				myCharts.hil.options.series[1].data = result.targets;
+				$('#chartHil').removeClass('hidden');
 				Highcharts.chart('chartHil', myCharts.hil.options);
 			},
 			sendRequest: function(param) {
+				$('#chartHil').addClass('hidden');
+				$('img[name="chartHilLoading"]').removeClass('hidden');
 				$.ajax({
 					url: myBaseUrl + '/hil',
 					type: 'POST',
@@ -199,6 +206,7 @@
 					data: JSON.stringify(param)
 				}).done(function(result) {
 					myCharts.hil.generateChart(result);
+					$('img[name="chartHilLoading"]').addClass('hidden');
 				});	
 			},
 			init: function() {

@@ -70,12 +70,12 @@
                                 	</a>
                                 </header>
                                 <h3 class="lockscreen-logo">
-                                    CABIN HEALTH MONITORING
+                                    CABIN HEALTH INDEX
                                 </h3>
                             </div>
                         </div>
                         <?php 
-                            $sessUser = $this->session->userdata('users');
+                            $sessUser = $this->session->userdata('users_logged_in');
                             $groupUser = $sessUser->id_users_group_fk; 
                         ?>
                         

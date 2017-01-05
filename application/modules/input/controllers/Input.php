@@ -82,7 +82,17 @@ class Input extends MY_Controller {
 
     public function functionality($type, $reg) {
         $data = $this->func_io($type, $reg);
+        //print_r($data); exit();
         $this->page->view('input_functionality', $data);   
+    }
+
+    public function input_ca() {
+        $params = json_decode($this->input->raw_input_stream, TRUE);
+
+        $this->load->model('trans_functionality_model');
+        $update = $this->trans_functionality_model->update_ca($params);
+
+        $this->json_output($update);
     }
     //methods for ajax request
     public function upload_image() {

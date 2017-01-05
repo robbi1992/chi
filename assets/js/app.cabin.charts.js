@@ -58,16 +58,19 @@
 			    {
 			        name: 'target',
 			        type: 'spline',
-			        color: '#DD4B39'	
+			        color: '#0f2233'	
 			    }]
 			},
 			sendRequest: function(param) {
+				$('img[name="chartCcLoading"]').removeClass('hidden');
+				$('#cabinChart').addClass('hidden');
 				$.ajax({
 					url: myBaseUrl + '/cabin_performance_dashboard',
 					type: 'POST',
 					dataType: 'JSON',
 					data: JSON.stringify(param)
 				}).done(function(result) {
+					$('img[name="chartCcLoading"]').addClass('hidden');
 					Chart.cabin.generate(result);
 				});
 			},
@@ -78,6 +81,7 @@
 				height = result.categories.length * 40;
 				$('#cabinChart').css('min-height', '200px');
 				$('#cabinChart').css('height', height + 'px');
+				$('#cabinChart').removeClass('hidden');
 				Highcharts.chart('cabinChart', Chart.cabin.options);
 
 			},
@@ -185,7 +189,7 @@
 		            name: 'Performance'
 		        }, {
 		            name: 'Target',
-		            color: '#DD4B39'
+		            color: '#0f2233'
 		        }]
 			},
 			generate: function(result) {
@@ -289,15 +293,19 @@
 					Chart.trend.options.yAxis.title.text = 'Performance (%)';
 					Chart.trend.options.tooltip.valueSuffix = '%';
 				}
+				$('#chartTrend').removeClass('hidden');
 				Highcharts.chart('chartTrend', Chart.trend.options);
 			},
 			sendRequest: function(params) {
+				$('img[name="chartTrendLoading"]').removeClass('hidden');
+				$('#chartTrend').addClass('hidden');
 				$.ajax({
 					url: myBaseUrl + '/trend_kpi_cabin',
 					type: 'POST',
 					dataType: 'JSON',
 					data: JSON.stringify(params)
 				}).done(function(result) {
+					$('img[name="chartTrendLoading"]').addClass('hidden');
 					Chart.trend.generate(result);
 				});	
 			},
@@ -365,8 +373,8 @@
 					$.each(result.data, function(index, value) {
 						row = myRows.clone().removeAttr('template').removeClass('hidden');
 						row.find('[view="acReg"]').html(value.acReg);
-						row.find('[view="perfFunc"]').html(value.performance + '%');
 						row.find('[view="descFunc"]').html(value.desc);
+						row.find('[view="caFunc"]').html(value.ca);
 						row.appendTo(wrapper);
 					});
 				}
@@ -374,12 +382,15 @@
 				myTable.removeClass('hidden');
 			},
 			sendRequest: function(params) {
+				$('img[name="funcDataLoading"]').removeClass('hidden');
+				$('table[name="funcData"]').addClass('hidden');
 				$.ajax({
 					url: myBaseUrl + '/func_area_performance',
 					type: 'POST',
 					dataType: 'JSON',
 					data: JSON.stringify(params)
 				}).done(function(result) {
+					$('img[name="funcDataLoading"]').addClass('hidden');
 					Chart.func.generate(result);
 				});	
 			},

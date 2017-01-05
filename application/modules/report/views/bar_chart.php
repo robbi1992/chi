@@ -24,7 +24,7 @@
   <div class="container">
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-nav-gmf pull-right">
-    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('users')->name_users; ?> <span class="caret"></span></a>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('users_logged_in')->name_users; ?> <span class="caret"></span></a>
       <ul class="dropdown-menu" role="menu">
         <li><a href="#"><span>Change Password</span></a></li>
         <li><a href="<?php echo site_url('/site/logout'); ?>"><span>Sign out</span></a></li> 
@@ -75,7 +75,8 @@
           </div>
         </div>
         <div class="box-body">
-          <div id="chartGauge" style="height: 225px;"></div>
+          <img name="chartGaugeLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
+          <div class="hidden" id="chartGauge" style="height: 225px;"></div>
         </div>
       </div>
     </div>
@@ -132,7 +133,8 @@
           </div>
         </div>
         <div class="box-body">
-          <div id="chartHil" style="height: 225px;"></div>
+          <img name="chartHilLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
+          <div class="hidden" id="chartHil" style="height: 225px;"></div>
         </div>
       </div>
     </div>
@@ -155,7 +157,8 @@
           </div>
         </div><!-- end box header -->
         <div class="box-body">
-          <div id="kcmsChart" style="height: 225px;"></div>
+          <img name="chartKcmsLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
+          <div class="hidden" id="kcmsChart" style="height: 225px;"></div>
         </div>
       </div><!-- end box primary -->
     </div><!-- end div -->
@@ -199,20 +202,21 @@
             </div>
           </div>
           <div class="box-body">
+            <img name="funcDataLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
             <table name="funcData" class="table table-bordered table-condensed table-stripped table-hover hidden">
               <thead>
                 <tr>
-                  <th class="text-center btn-github" colspan="3">Cabin Performance Index</th>
+                  <th class="text-center btn-github" colspan="3">Problem Identification Corrective Action</th>
                 </tr>
                 <tr>
-                  <th class="text-center">Aircraft Registered</th>
-                  <th class="text-center">Performance</th>
+                  <th class="text-center">A/C</th>
                   <th class="text-center">Desc</th>
+                  <th class="text-center">Corrective Action</th>
                 </tr>
                 <tr template="rows" class="hidden btn-google">
                   <td view="acReg"></td>
-                  <td class="text-center" view="perfFunc"></td>
                   <td view="descFunc"></td>
+                  <td view="caFunc"></td>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -250,7 +254,8 @@
                 </div>
             </div>
             <div class="box-body">
-              <div id="cabinChart" style="height: 280px;"></div>
+              <img name="chartCcLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
+              <div class="hidden" id="cabinChart" style="height: 280px;"></div>
             </div>
           </div>
       </div>
@@ -275,7 +280,8 @@
               </div>
             </div>
             <div class="box-body">
-              <div id="chartTrend" style="height: 280px;"></div>
+              <img name="chartTrendLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
+              <div class="hidden" id="chartTrend" style="height: 280px;"></div>
             </div>
           </div>
       </div>
@@ -300,7 +306,8 @@
                 </div>
             </div>
             <div class="box-body">
-              <div id="typeChart" style="height: 280px;"></div>
+              <img name="chartTypeLoading" class="hidden" src="<?php echo base_url('assets/images/plane.gif');?>" style="display: block; margin-left: auto; margin-right: auto;">
+              <div class="hidden" id="typeChart" style="height: 280px;"></div>
             </div>
           </div>
       </div><!-- end col -->

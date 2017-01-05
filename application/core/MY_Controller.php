@@ -213,7 +213,9 @@ class MY_Controller extends MX_Controller {
                     'subItems' => $v['items'],
                     'subDefects' => $v['defects'],
                     'subRemark' => $v['remark'],
-                    'perform' => parsing_float((($v['items'] - $v['defects']) / $v['items']) * 100)
+                    'perform' => parsing_float((($v['items'] - $v['defects']) / $v['items']) * 100),
+                    'ca' => $v['corrective_action'],
+                    'date' => $v['modified_date']
                 );
 
             if(isset($result['chart'][$v['fi_id']])) {

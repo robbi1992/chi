@@ -56,7 +56,7 @@ class Trans_exterior_model extends CI_Model {
 			$this->db->set('acr_id', $params['acReg']);
 			$this->db->set('exis_id', $params['subItem']);
 			$this->db->set('te_date', date('Y-m-d'));
-			$this->db->set('te_by', $_SESSION['users']->id);
+			$this->db->set('te_by', $_SESSION['users_logged_in']->id);
 			$action = $this->db->insert('trans_exterior');
 		}
 

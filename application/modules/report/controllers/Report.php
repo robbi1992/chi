@@ -353,7 +353,7 @@ class Report extends MY_Controller {
 			$result['targets'] = array(3.5, 1.5);
 		}
 		else {
-			$result['ratios'] = array(4, 4); 
+			$result['ratios'] = array(0, 0); 
 			$result['targets'] = array(3.5, 1.5);
 		}
 		$this->json_output($result);
@@ -361,6 +361,7 @@ class Report extends MY_Controller {
 
 	private function function_yearly($array = array()) {
 		if ($array > 0) {
+			$a = array();
 			foreach ($array as $val) {
 				$month = date('m', strtotime($val['modified_date']));
 				if (isset($a[$month])) {
@@ -370,13 +371,17 @@ class Report extends MY_Controller {
 					$a[$month] = array($val);
 				}
 			}
-		
-			foreach ($a as $key => $value) {
-				$sum = 0;
-				foreach ($a[$key] as $v) {
-					$sum += (($v['items'] - $v['defects']) / $v['items']) * 100;
+			if (count($a) > 0) {
+				foreach ($a as $key => $value) {
+					$sum = 0;
+					foreach ($a[$key] as $v) {
+						$sum += (($v['items'] - $v['defects']) / $v['items']) * 100;
+					}
+					$perf[] = parsing_float($sum / count($a[$key]));
 				}
-				$perf[] = parsing_float($sum / count($a[$key]));
+			}
+			else {
+				$perf[] = 100;
 			}
 		}
 		else {
@@ -491,8 +496,8 @@ class Report extends MY_Controller {
 		else {
 			$months = get_month();
 			foreach ($months as $value) {
-				$result['WB'][] = 4;
-				$result['NB'][] = 4;
+				$result['WB'][] = 0;
+				$result['NB'][] = 0;
 			}
 		}
 		return $result;			
@@ -546,7 +551,8 @@ class Report extends MY_Controller {
 		foreach ($trans as $value) {
 			$result['data'][] = array(
 					'acReg' => $value['name_ac_reg'],
-					'performance' => parsing_float((($value['items'] - $value['defects']) / $value['items']) * 100),
+					//'performance' => parsing_float((($value['items'] - $value['defects']) / $value['items']) * 100),
+					'ca' => $value['corrective_action'],
 					'desc' => $value['remark']
 				);	
 		}

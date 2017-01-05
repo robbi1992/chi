@@ -59,7 +59,7 @@
 			    },
 			    {
 			        name: 'Target',
-			        color: '#DD4B39',
+			        color: '#0f2233',
 			        data: []
 			    }
 			    ]

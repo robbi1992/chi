@@ -254,7 +254,7 @@
                                 temp.empty();
                                 temp.html(edit.params.value);
                                 row.find('[view="date"]').empty().html('<?php echo date("Y-m-d");?>');
-                                row.find('[view="inspector"]').empty().html('<?php echo $_SESSION["users"]->id;?>');
+                                row.find('[view="inspector"]').empty().html('<?php echo $_SESSION["users_logged_in"]->id;?>');
                                 row.removeClass();
                                 row.addClass(bg);
                             }

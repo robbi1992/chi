@@ -1,4 +1,32 @@
-(function($) {
+function doUpdate(e, el) {
+	if(e.keyCode == 13) {
+		var params = {
+			regID: regID,
+			fisID: $(el).attr('datafisid'),
+			fiID: $(el).attr('datafiid'),
+			item: $(el).attr('dataitem'),
+			date: $(el).attr('datadate'),
+			ca: $(el).val()
+		};
+
+		$.ajax({
+          	url: inputUrl + 'input_ca',
+          	type: 'post',
+          	dataType: 'JSON',
+          	data: JSON.stringify(params)
+        }).done(function(result) {
+        	if (result == false) {
+        		alert('Any problems, please try again later ...');
+        	}
+        	else {
+        		$(el).closest('tr').find('td[view="editCa"]').empty().html(result);
+				Report.update.appendInput = true;	
+        	}
+        });     	
+	}
+}
+
+//(function($) {
 	var Report = {
 		hil: {
 			param: {
@@ -62,7 +90,7 @@
 			    },
 			    {
 			        name: 'Target',
-			        color: '#DD4B39',
+			        color: '#0f2233',
 			        data: []
 			    }
 			    ]
@@ -73,8 +101,27 @@
 				Report.hil.options.series[1].data = chartData.targets;
 				Highcharts.chart('bar-chart', Report.hil.options);
 			}
+		},
+		update: {
+			appendInput: true,
+			init: function() {
+				var editCa = $('td[view="editCa"]');
+				editCa.on('click', function(){
+					if (Report.update.appendInput) {
+						Report.update.appendInput = false;
+						value = $(this).html();
+						fisID = $(this).attr('datafisid');
+						fiID = $(this).attr('datafiid');
+						item = $(this).attr('dataitem');
+						date = $(this).attr('datadate');
+						$(this).empty().append('<input datafiid="'+fiID+'" dataitem="'+item+'" datadate="'+date+'" datafisid="'+fisID+'" class="form-control input-sm" onkeypress="doUpdate(event, this)" value="'+value+'" />');
+                		$(this).find('input').focus();
+					}
+				});
+			}
 		}
-	}
+	};
 
 	Report.hil.init();
-})(jQuery);
+	Report.update.init();
+//})(jQuery);

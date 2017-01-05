@@ -27,7 +27,7 @@
         <div class="col-md-7">
             <div class="box box-danger">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Detail cabin performance </h3>
+                    <h3 class="box-title">Problem Identification Corrective Action </h3>
                 </div>
                 <div class="box-body">
                     <table class="table table-condensed table-hover table-striped">
@@ -37,7 +37,7 @@
                                 <th class="text-center">Items</th>
                                 <th class="text-center">Defects</th>
                                 <th class="text-center">Remark</th>
-                                <th class="text-center">Perform</th>
+                                <th class="text-center">Corrective Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,7 +49,7 @@
                                 <td class="text-center"><?php echo $v['subItems']; ?></td>
                                 <td class="text-center"><?php echo $v['subDefects']; ?></td>
                                 <td><?php echo $v['subRemark']; ?></td>
-                                <td class="text-center"><?php echo $v['perform']; ?> %</td>
+                                <td class="text-center" view="editCa" datafiid="<?= $v['itemID'];?>" dataitem="<?= $v['subItems'];?>" datadate="<?= $v['date'];?>" datafisid="<?= $v['subID'];?>"><?php echo $v['ca']; ?></td>
                             </tr>
                             <?php
                             }
@@ -67,6 +67,7 @@
 <script type="text/javascript">
 	var regID = '<?php echo $reg["regID"];?>';
 	var baseUrl = '<?php echo site_url() ?>/view/';
+    var inputUrl = '<?php echo site_url() ?>/input/';
 	var chartData = <?php echo json_encode($performance); ?>;
 </script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/app.view_functionality.js"></script>

@@ -45,12 +45,15 @@
 			    }]
 			},
 			sendRequest: function(param) {
+				$('img[name="chartTypeLoading"]').removeClass('hidden');
+				$('#typeChart').addClass('hidden');
 				$.ajax({
 					url: myBaseUrl + '/get_type_data',
 					type: 'POST',
 					dataType: 'JSON',
 					data: JSON.stringify(param)
 				}).done(function(result) {
+					$('img[name="chartTypeLoading"]').addClass('hidden');
 					Chart.chartType.generate(result);
 				});
 			},
@@ -60,6 +63,7 @@
 				//height = result.categories.length * 40;
 				//$('#typeChart').css('min-height', '200px');
 				//$('#typeChart').css('height', height + 'px');
+				$('#typeChart').removeClass('hidden');
 				Highcharts.chart('typeChart', Chart.chartType.options);
 
 			},
